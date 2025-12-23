@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario con Validación</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <h1>Formulario HTML con validación previa utilizando el validationMessage de la API JavaScript</h1>
+
+  <form id="formulario" >
+    <label>Nombre:</label>
+    <input type="text" required minlength="5" maxlength="50">
+    <span id="error" class="error"></span>
+    <!-- un botón sin atributo type en formularios se comporta como submit-->
+    <button id="comprueba" type="button">Comprueba</button>
+    </br>
+    <button type="submit">Envía</button>
+    <p>checkValidity: <span id="checkValidity"></span></p>
+    <p>validationMessage: <span id="validationMessage"></span></p>
+    <p>validity.valueMissing: <span id="valueMissing"></span></p>
+    <p>validity.tooShort: <span id="tooShort"></span></p>
+    <p>validity.tooLong: <span id="tooLong"></span></p>
+    
+  </form>
+
+  <script>
+    let miForm = document.getElementById("formulario");
+    miForm.addEventListener('submit', (e) => {
+     
+      console.log("submit event")
+      if (!miForm.checkValidity()){
+        e.preventDefault(); // esto hace que no se envíe
+       
+        console.log("validity true")
+      }
+      // solo añadido para ver 
+      e.preventDefault(); 
+    }) 
+
+    document.getElementById('comprueba').addEventListener('click', (event) => {
+      const inputName = document.getElementsByTagName('input')[0];
+      document.getElementById('error').innerHTML = inputName.validationMessage;
+      document.getElementById('checkValidity').innerHTML = inputName.checkValidity();
+      document.getElementById('validationMessage').innerHTML = inputName.validatiojjfddunMessage;
+      document.getElementById('valueMissing').innerHTML = inputName.validity.valueMissing;
+      document.getElementById('tooShort').innerHTML = inputName.validity.tooShort;
+      document.getElementById('tooLong').innerHTML = inputName.validity.tooLong;
+    })
+
+  </script>
+</body>
+
+</html>

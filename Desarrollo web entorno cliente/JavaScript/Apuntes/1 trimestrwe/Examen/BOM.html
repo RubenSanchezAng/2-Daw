@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /* ==========================================
+        🌐 BROWSER OBJECT MODEL (BOM)
+        ========================================== */
+
+        /* ---------------------------------
+        🔹 INTRODUCCIÓN
+        ---------------------------------
+        BOM permite interactuar con el navegador:
+        - Abrir, cambiar y cerrar ventanas
+        - Ejecutar código con timers
+        - Obtener información del navegador
+        - Modificar propiedades de la pantalla
+        - Gestionar cookies, etc.
+        */
+
+        /* ---------------------------------
+        ⏱ TIMERS: setTimeout y setInterval
+        --------------------------------- */
+
+        /* setTimeout(función, ms): ejecuta la función una vez tras x milisegundos */
+        const idTimeout = setTimeout(() => alert('Timeout tras 1 segundo'), 1000);
+
+        /* setInterval(función, ms): ejecuta la función repetidamente cada ms */
+        let contador = 1;
+        const idIntervalo = setInterval(() => {
+        alert('Intervalo cada 3 seg. Ejecución nº: ' + contador++);
+        if (contador === 5) {
+            clearInterval(idIntervalo);
+            alert('Fin del Intervalo');
+        }
+        }, 3000);
+
+        /* ---------------------------------
+        🔹 Llamar a funciones existentes
+        --------------------------------- */
+        function mostrarMensaje(msg) {
+        alert(msg);
+        }
+
+        /* Sin paréntesis para que no se ejecute inmediatamente */
+        const idTimeout2 = setTimeout(mostrarMensaje, 1000, 'Timeout tras 1 segundo');
+
+        /* ---------------------------------
+        🖥 OBJETO WINDOW
+        --------------------------------- */
+
+        /*
+        - Representa la ventana del navegador.
+        - Se puede omitir window. al usar sus métodos y propiedades.
+        */
+
+        window.name;           // Nombre de la ventana
+        window.status;         // Valor de la barra de estado
+        window.screenX;        // Distancia desde la izquierda de la pantalla
+        window.screenY;        // Distancia desde la parte superior
+        window.outerWidth;     // Ancho total de la ventana
+        window.outerHeight;    // Alto total de la ventana
+        window.innerWidth;     // Ancho útil del documento
+        window.innerHeight;    // Alto útil del documento
+
+        /* Abrir una nueva ventana */
+        let ventana = window.open('about:_blanck', 'miVentana', 'width=500,height=200,left=100,top=200');
+        ventana.document.write('<h1>Hola</h1>');   // Escribir contenido
+        ventana.moveBy(-100, 300);                 // Mover ventana
+        ventana.close();                           // Cerrar ventana
+
+        /* ---------------------------------
+        💬 DIÁLOGOS
+        --------------------------------- */
+        window.alert('Mensaje de alerta');
+        let respuestaConfirm = window.confirm('¿Estás de acuerdo?'); // true/false
+        let respuestaPrompt = window.prompt('Introduce tu nombre:', ''); // string o null
+
+        /* ---------------------------------
+        📍 OBJETO LOCATION
+        --------------------------------- */
+        console.log(window.location.href);      // URL completa
+        console.log(window.location.protocol);  // Protocolo
+        console.log(window.location.hostname);  // Host
+        console.log(window.location.port);      // Puerto
+        console.log(window.location.pathname);  // Ruta al recurso
+        console.log(window.location.hash);      // Fragmento #...
+        console.log(window.location.search);    // Parámetros ?...
+
+        // Métodos
+        // window.location.reload();  // Recarga página
+        // window.location.assign('https://google.com'); // Ir a otra URL
+        // window.location.replace('https://google.com'); // Cambiar URL sin historial
+
+        /* ---------------------------------
+        🔙 OBJETO HISTORY
+        --------------------------------- */
+        console.log(window.history.length); // Número de páginas en el historial
+        // window.history.back();     // Página anterior
+        // window.history.forward();  // Página siguiente
+        // window.history.go(-1);     // Moverse n páginas en el historial
+
+        /* ---------------------------------
+        🧭 OBJETO NAVIGATOR
+        --------------------------------- */
+        console.log(window.navigator.userAgent);  // Información del navegador
+        console.log(window.navigator.language);   // Idioma del navegador
+        console.log(window.navigator.languages);  // Idiomas disponibles
+        console.log(window.navigator.appVersion); // Versión del navegador
+        console.log(window.navigator.appName);    // Nombre del navegador
+        console.log(window.navigator.platform);   // Sistema operativo
+
+        /* Objetos adicionales del navegador */
+        console.log(window.navigator.geolocation);   // Geolocalización
+        console.log(window.navigator.storage);       // Datos del navegador
+        console.log(window.navigator.clipboard);     // Portapapeles
+        console.log(window.navigator.mediaDevices);  // Dispositivos multimedia
+        console.log(window.navigator.serviceWorker); // Service workers
+
+        /* ---------------------------------
+        🖥 OBJETO SCREEN
+        --------------------------------- */
+        console.log(window.screen.width);       // Ancho total de pantalla
+        console.log(window.screen.height);      // Alto total de pantalla
+        console.log(window.screen.availWidth);  // Ancho disponible (sin barras del SO)
+        console.log(window.screen.availHeight); // Alto disponible (sin barras del SO)
+
+        /* ---------------------------------
+        📌 RESUMEN
+        ---------------------------------
+        🔹 window → ventana principal
+        🔹 Timers → ejecutar código futuro (setTimeout / setInterval)
+        🔹 alert, confirm, prompt → diálogos
+        🔹 location → URL y navegación
+        🔹 history → historial de navegación
+        🔹 navigator → info del navegador y sistema
+        🔹 screen → información de la pantalla
+        */
+
+
+    </script>
+    
+</body>
+</html>

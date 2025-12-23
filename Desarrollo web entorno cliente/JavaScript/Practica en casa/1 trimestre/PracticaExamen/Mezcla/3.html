@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        "use strict";
+        class Nombre{
+            static nombres = [];
+            constructor(nombre, apellido, edad){
+                this.nombre = nombre;
+                this.apellido = apellido;
+                this.edad = edad;
+            }
+            anyadirDatos(){
+                let nombre = this;
+                Nombre.nombres.push(nombre);
+                localStorage.setItem("nombres", JSON.stringify(Nombre.nombres));
+                
+            }
+            
+            static cargarDatos(){
+                let nombres = localStorage.getItem("nombres");
+                const arrayObj = JSON.parse(datos);
+                Nombre.nombres = arrayObj.map(item => new Nombre(item.nombre, item.apellido, item.edad));
+            } 
+        }
+    </script>
+</body>
+</html>

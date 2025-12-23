@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        "use strict";
+        class Libro{
+            static libros = [];
+            constructor(nombre, autor, fechaPublicacion){
+                this.nombre = nombre;
+                this.autor = autor;
+                this.fechaPublicacion = fechaPublicacion;
+            
+            }
+            anyadirLibro(){
+                let libro = this;
+                Libro.libros.push(libro);
+                localStorage.setItem("libros", JSON.stringify(Libro.libros));
+            }
+            eliminarLibro(){
+                let libroEliminar = window.prompt("Nombre del libro");
+
+                let indice = Libro.libros.findIndex((libro) => libro.nombre === libroEliminar);
+                if(indice != -1){
+                    Libro.libros.splice(indice, 1);
+                    console.log("Libro eliminado");
+                }else{
+                    console.log("Libro no existente");
+                }
+            }
+           static verLibros(){
+                for (const libro of Libro.libros) {
+                    console.log("Datos de libro:");
+                    console.log("Nombre: "+libro.nombre);
+                    console.log("Autor: "+libro.autor);
+                    let año = libro.fechaPublicacion.getFullYear();
+                    let mes = libro.fechaPublicacion.getMonth();
+                    let dia = libro.fechaPublicacion.getDate();
+                    let fechaAct = new Date();
+                    let edad = fechaAct.getFullYear() - año;
+                    if(fechaAct.getMonth() < mes){
+                        edad--;
+                    }else if(fechaAct.getMonth() == mes && fechaAct.getDate() < dia){
+                        edad--;
+                    }
+                    console.log(`Se publico el ${dia} del ${mes} de ${año}`);
+                    console.log(`Hace ${edad} años`);
+                }
+            }
+            cargarLibros(){
+                 const librosGuardados = localStorage.getItem("libros");
+                if(librosGuardados){
+                    const array = JSON.parse(librosGuardados);
+                    Libro.libros = array.map(obj => new Libro(
+                        obj.nombre,
+                        obj.autor,
+                        new Date(obj.fechaPublicacion)
+                    ));
+                    Libro.verLibros();
+                }
+            }
+        }
+        let a = new Libro("a", "juan" , new Date(2007, 10, 22));
+        a.cargarLibros();
+
+    </script>
+</body>
+</html>

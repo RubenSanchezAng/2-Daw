@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Contador regresivo</title>
+</head>
+<body>
+
+    <h2>Temporizador regresivo</h2>
+
+    <p>Tiempo restante: <span id="tiempo">20</span></p>
+
+    <button id="iniciar">Iniciar</button>
+    <button id="detener">Detener</button>
+    <button id="reiniciar">Reiniciar</button>
+
+    <script>
+        let tiempo = 20;
+        let intervalo = null;
+
+        function actualizar(){
+            document.getElementById("tiempo").textContent = tiempo;
+        }
+
+        document.getElementById("iniciar").addEventListener("click", ()=>{
+            intervalo = setInterval(() =>{             
+                if(tiempo == 0){
+                    tiempo = 20;
+                    actualizar();
+                    clearInterval(intervalo);
+                    intervalo = null;
+                }else{
+                    tiempo--;
+                    actualizar();
+                }
+            },1000);
+        });
+        document.getElementById("reiniciar").addEventListener("click", () =>{
+            tiempo = 20;
+            actualizar();
+            clearInterval(intervalo);
+            intervalo = null;
+        })
+        document.getElementById("detener").addEventListener("click",()=>{
+            clearInterval(intervalo);
+            intervalo = null;
+        });
+        
+</script>
+
+</body>
+</html>

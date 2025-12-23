@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<table>
+        <tr>
+            <th>#</th>
+            <th>Nombre</th>
+        </tr>
+    <tbody id="pokemon"></tbody>
+</table>
+
+<script>
+        fetch('https://pokeapi.co/api/v2/pokemon/')
+        .then(response => response.json())
+        .then(data =>{
+
+        const tbody = document.getElementById('pokemon');
+        tbody.innerHTML = '';
+
+        data.results.forEach((pokemon, index) => {
+            const fila = `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${pokemon.name}</td>
+                </tr>
+            `;
+            tbody.innerHTML += fila;
+        });
+        })
+
+
+    
+</script>
+</body>
+</html>

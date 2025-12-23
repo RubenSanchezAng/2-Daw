@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    
+</head>
+<body>
+    <input type="submit" name="" id="sumar" value="Sumar">
+    <input type="submit" name="" id="resetear" value="Resetear">
+
+    <p id="contador"></p>
+
+    <script>
+        let sumar = document.getElementById("sumar");
+        let contador = document.getElementById("contador");
+        let resetear = document.getElementById("resetear");
+
+        function mostrarCantidad(){
+            let valor = localStorage.getItem("contador") || 0;
+            valor++;
+            localStorage.setItem("contador", valor);
+            contador.textContent = localStorage.getItem("contador");
+
+        }
+        function resetearDatos() {
+            let valor = 0;
+            localStorage.setItem("contador",valor);
+            contador.textContent = localStorage.getItem("contador");
+
+        }
+        sumar.addEventListener("click", mostrarCantidad);
+        resetear.addEventListener("click", resetearDatos);
+
+    </script>
+</body>
+</html>

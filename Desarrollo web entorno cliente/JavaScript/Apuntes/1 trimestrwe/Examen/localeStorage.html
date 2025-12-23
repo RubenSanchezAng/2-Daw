@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /* ==========================================
+        💾 ALMACENANDO DATOS EN EL NAVEGADOR
+        ========================================== */
+
+        /* ---------------------------------
+        🔹 INTRODUCCIÓN
+        ---------------------------------
+        localStorage y sessionStorage permiten guardar pares clave/valor en el navegador.
+        Diferencias principales:
+        - localStorage → persiste tras cerrar/reabrir navegador
+        - sessionStorage → persiste solo en la pestaña actual
+        - No se envían al servidor como las cookies
+        - Datos vinculados al origen (dominio/protocolo/puerto)
+        */
+
+        /* ---------------------------------
+        🧩 MÉTODOS PRINCIPALES
+        --------------------------------- */
+        localStorage.setItem('miClave', 'valor');      // Guardar
+        localStorage.getItem('miClave');               // Obtener
+        localStorage.removeItem('miClave');            // Borrar
+        localStorage.clear();                           // Borrar todo
+        localStorage.key(0);                            // Obtener clave por índice
+        localStorage.length;                            // Número de ítems almacenados
+
+        /* ---------------------------------
+        🔹 Ejemplo básico localStorage
+        --------------------------------- */
+        localStorage.setItem('test', '1');
+        alert(localStorage.getItem('test')); // 1
+
+        /* Acceso tipo objeto (no recomendado) */
+        localStorage.test = '2';
+        alert(localStorage.test); // 2
+        delete localStorage.test;
+
+        /* ⚠️ Problema con claves especiales */
+        let clave = 'length';
+        localStorage[clave] = 5; // Error, usar setItem/getItem
+
+        /* ---------------------------------
+        🔹 Iterando sobre claves
+        --------------------------------- */
+        for (let i = 0; i < localStorage.length; i++) {
+        let clave = localStorage.key(i);
+        alert(`${clave}: ${localStorage.getItem(clave)}`);
+        }
+
+        /* Filtrar claves propias usando hasOwnProperty */
+        for (let clave in localStorage) {
+        if (!localStorage.hasOwnProperty(clave)) continue;
+        alert(`${clave}: ${localStorage.getItem(clave)}`);
+        }
+
+        /* Usando Object.keys */
+        let claves = Object.keys(localStorage);
+        for (let clave of claves) {
+        alert(`${clave}: ${localStorage.getItem(clave)}`);
+        }
+
+        /* ---------------------------------
+        🔹 Solo strings
+        --------------------------------- */
+        localStorage.edad = 30;             // Se convierte a "30"
+        localStorage.objeto = { nombre: 'Juan' };
+        alert(localStorage.objeto);          // [object Object]
+
+        // Guardar objetos con JSON
+        localStorage.objeto = JSON.stringify({ nombre: 'Juan' });
+        let objeto = JSON.parse(localStorage.objeto);
+        alert(objeto.nombre); // Juan
+
+        /* Mostrar todo el localStorage en formato legible */
+        alert(JSON.stringify(localStorage, null, 2));
+
+        /* ---------------------------------
+        🔹 sessionStorage
+        --------------------------------- */
+        sessionStorage.setItem('test', '1');
+        alert(sessionStorage.getItem('test')); // 1 después de recargar
+        // Nueva pestaña → sessionStorage vacío
+
+        /* ---------------------------------
+        🔹 EVENTO STORAGE
+        --------------------------------- */
+        /*
+        Se dispara al actualizar localStorage/sessionStorage
+        Propiedades del evento:
+        - key → clave modificada (null si se llamó a clear)
+        - oldValue → valor anterior (null si se añadió)
+        - newValue → nuevo valor (null si se borró)
+        - url → url del documento donde ocurrió el cambio
+        - storageArea → localStorage o sessionStorage
+        */
+        window.onstorage = evento => {
+        if (evento.key != 'ahora') return;
+        alert(`${evento.key}: ${evento.newValue} en ${evento.url}`);
+        };
+
+        // Disparar evento desde otra ventana
+        localStorage.setItem('ahora', Date.now());
+
+        /* ---------------------------------
+        📌 RESUMEN
+        ---------------------------------
+        🔸 localStorage:
+            - Compartido entre pestañas/ventanas del mismo origen
+            - Persiste tras cerrar el navegador
+        🔸 sessionStorage:
+            - Solo en la pestaña actual
+            - Persiste tras refrescar, muere al cerrar pestaña
+        🔸 Ambos:
+            - setItem(clave, valor) → guardar
+            - getItem(clave) → obtener
+            - removeItem(clave) → borrar
+            - clear() → borrar todo
+            - key(indice) → obtener clave por índice
+            - length → número de ítems almacenados
+            - Las claves y valores son strings
+            - El evento storage permite reaccionar a cambios en otras ventanas
+        */
+
+    </script>
+</body>
+</html>

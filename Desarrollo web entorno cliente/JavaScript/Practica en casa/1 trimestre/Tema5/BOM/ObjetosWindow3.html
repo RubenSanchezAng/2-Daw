@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio BOM Completo</title>
+</head>
+<body>
+
+<h2>OBJETO LOCATION — Práctica</h2>
+
+<button onclick="mostrarURL()">Mostrar URL completa</button>
+<button onclick="mostrarServidor()">Mostrar servidor</button>
+<button onclick="irGoogle()">Ir a Google</button>
+<button onclick="recargar()">Recargar página</button>
+
+<h2>OBJETO HISTORY — Práctica</h2>
+
+<button onclick="irAtras()">Ir atrás en historial</button>
+<button onclick="irAdelante()">Ir adelante en historial</button>
+<button onclick="irDosAtras()">Ir 2 páginas atrás (si hay)</button>
+
+<h2>OBJETO NAVIGATOR — Práctica</h2>
+
+<button onclick="mostrarNavegador()">Mostrar info del navegador</button>
+<button onclick="mostrarIdioma()">Mostrar idioma</button>
+<button onclick="mostrarPlataforma()">Mostrar plataforma</button>
+<button onclick="mostrarGeolocalizacion()">Mostrar geolocalización</button>
+
+<script>
+
+// ---------- LOCATION --------------------------------------------------
+
+function mostrarURL() {
+    alert("URL COMPLETA: " + location.href);
+}
+
+function mostrarServidor() {
+    alert("SERVIDOR (hostname): " + location.hostname);
+}
+
+function irGoogle() {
+    // Usando assign
+    location.assign("https://www.google.com");
+}
+
+function recargar() {
+    location.reload(); // igual que F5
+}
+
+
+// ---------- HISTORY --------------------------------------------------
+
+function irAtras() {
+    history.back();
+}
+
+function irAdelante() {
+    history.forward();
+}
+
+function irDosAtras() {
+    history.go(-2);
+}
+
+
+// ---------- NAVIGATOR ------------------------------------------------
+
+function mostrarNavegador() {
+    let info =
+        "UserAgent: " + navigator.userAgent + "\n" +
+        "App Version: " + navigator.appVersion + "\n" +
+        "App Name: " + navigator.appName + "\n" +
+        "Código del navegador: " + navigator.appCodeName + "\n" +
+        "Producto: " + navigator.product + "\n";
+
+    alert(info);
+}
+
+function mostrarIdioma() {
+    alert(
+        "Idioma principal: " + navigator.language +
+        "\nIdiomas instalados: " + navigator.languages.join(", ")
+    );
+}
+
+function mostrarPlataforma() {
+    alert("Plataforma: " + navigator.platform);
+}
+
+function mostrarGeolocalizacion() {
+    if ("geolocation" in navigator) {
+
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                alert(
+                    "Latitud: " + pos.coords.latitude +
+                    "\nLongitud: " + pos.coords.longitude
+                );
+            },
+            (err) => {
+                alert("No se pudo obtener la geolocalización: " + err.message);
+            }
+        );
+
+    } else {
+        alert("Geolocalización NO soportada.");
+    }
+}
+
+</script>
+</body>
+</html>

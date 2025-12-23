@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de tareas con LocalStorage</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 500px;
+      margin: 40px auto;
+      background: #f5f5f5;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 { text-align: center; }
+    input, button {
+      padding: 8px;
+      margin: 5px 0;
+    }
+    ul { list-style: none; padding: 0; }
+    li {
+      background: white;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    button.borrar {
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 5px 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧾 Mis Tareas</h1>
+  <input type="text" id="tarea" placeholder="Escribe una tarea...">
+  <button id="agregar">Agregar</button>
+
+  <ul id="lista"></ul>
+
+  <script>
+    const input = document.getElementById('tarea');
+    const lista = document.getElementById('lista');
+    const btnAgregar = document.getElementById('agregar');
+
+    // Cargar tareas guardadas al iniciar
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de tareas con LocalStorage</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 500px;
+      margin: 40px auto;
+      background: #f5f5f5;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 { text-align: center; }
+    input, button {
+      padding: 8px;
+      margin: 5px 0;
+    }
+    ul { list-style: none; padding: 0; }
+    li {
+      background: white;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    button.borrar {
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 5px 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧾 Mis Tareas</h1>
+  <input type="text" id="tarea" placeholder="Escribe una tarea...">
+  <button id="agregar">Agregar</button>
+
+  <ul id="lista"></ul>
+
+  <script>
+    const input = document.getElementById('tarea');
+    const lista = document.getElementById('lista');
+    const btnAgregar = document.getElementById('agregar');
+
+    // Cargar tareas guardadas al iniciar
+    let tareas = JSON.parse(localStorage.getItem('tareas')) || [];
+
+    function mostrarTareas() {
+      lista.innerHTML = '';
+      tareas.forEach((tarea, index) => {
+        const li = document.createElement('li');
+        li.textContent = tarea;
+        
+        const btnBorrar = document.createElement('button');
+        btnBorrar.textContent = '❌';
+        btnBorrar.classList.add('borrar');
+        btnBorrar.addEventListener('click', () => borrarTarea(index));
+        
+        li.appendChild(btnBorrar);
+        lista.appendChild(li);
+      });
+    }
+
+    function agregarTarea() {
+      const texto = input.value.trim();
+      if (texto === '') return alert('Escribe una tarea antes de agregar.');
+      tareas.push(texto);
+      localStorage.setItem('tareas', JSON.stringify(tareas));
+      input.value = '';
+      mostrarTareas();
+    }
+
+    function borrarTarea(index) {
+      tareas.splice(index, 1);
+      localStorage.setItem('tareas', JSON.stringify(tareas));
+      mostrarTareas();
+    }
+
+    btnAgregar.addEventListener('click', agregarTarea);
+
+    mostrarTareas(); // Mostrar las tareas al cargar
+  </script>
+</body>
+</html>
+
+    function mostrarTareas() {
+      lista.innerHTML = '';
+      tareas.forEach((tarea, index) => {
+        const li = document.createElement('li');
+        li.textContent = tarea;
+        
+        const btnBorrar = document.createElement('button');
+        btnBorrar.textContent = '❌';
+        btnBorrar.classList.add('borrar');
+        btnBorrar.addEventListener('click', () => borrarTarea(index));
+        
+        li.appendChild(btnBorrar);
+        lista.appendChild(li);
+      });
+    }
+
+    function agregarTarea() {
+      const texto = input.value.trim();
+      if (texto === '') return alert('Escribe una tarea antes de agregar.');
+      tareas.push(texto);
+      localStorage.setItem('tareas', JSON.stringify(tareas));
+      input.value = '';
+      mostrarTareas();
+    }
+
+    function borrarTarea(index) {
+      tareas.splice(index, 1);
+      localStorage.setItem('tareas', JSON.stringify(tareas));
+      mostrarTareas();
+    }
+
+    btnAgregar.addEventListener('click', agregarTarea);
+
+    mostrarTareas(); // Mostrar las tareas al cargar
+  </script>
+</body>
+</html>

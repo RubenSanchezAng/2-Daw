@@ -1,0 +1,124 @@
+<!-- Enunciado:
+Crea una clase Producto que tenga nombre y cantidad.
+
+Mantén un array de productos que el usuario puede modificar.
+
+Permite agregar productos con un formulario y un botón.
+
+Permite eliminar un producto específico usando splice.
+
+Muestra en el DOM todos los productos, y calcula el total de productos usando reduce.
+
+Muestra también solo los productos con cantidad mayor a 1 usando filter.
+
+Bonus: cuando el usuario pase el mouse sobre un producto, muestra un mensaje con la posición del mouse (mousemove). -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<div>
+    <input id="nombre" placeholder="Nombre producto">
+    <input id="cantidad" type="number" placeholder="Cantidad">
+    <button id="agregar">Agregar producto</button>
+</div>
+
+<h2>Productos</h2>
+<ul id="lista"></ul>
+
+<h3>Total Cantidades: <span id="total"></span></h3>
+<h3>Productos con cantidad > 1:</h3>
+<ul id="mayores"></ul>
+
+<p id="posicion"></p>
+
+<script>
+class Producto {
+
+    static productos = []; // lista común a todas las instancias
+
+    constructor(nombre, cantidad) {
+        this.nombre = nombre;
+        this.cantidad = cantidad;
+    }
+
+    anyadirProducto() {
+        let producto = { nombre: this.nombre, cantidad: this.cantidad };
+        Producto.productos.push(producto);
+        pintarProductos();
+    }
+
+    static eliminarProducto(indice) {
+        Producto.productos.splice(indice, 1);
+        pintarProductos();
+    }
+
+}
+function pintarProductos() {
+
+    let lista = document.getElementById("lista");
+    lista.innerHTML = "";
+
+    Producto.productos.forEach((p, i) => {
+
+        let li = document.createElement("li");
+        li.textContent = `${p.nombre} (x${p.cantidad}) `;
+
+        // botón eliminar
+        let btn = document.createElement("button");
+        btn.textContent = "Eliminar";
+        btn.onclick = () => Producto.eliminarProducto(i);
+
+        // evento mousemove
+        li.onmousemove = (e) => {
+            document.getElementById("posicion").textContent =
+                `Mouse: X=${e.clientX} Y=${e.clientY}`;
+        };
+
+        li.appendChild(btn);
+        lista.appendChild(li);
+    });
+
+        pintarTotales();
+}
+
+    function pintarTotales() {
+
+        // reduce → total cantidades
+        let total = Producto.productos.reduce((acum, p) => acum + p.cantidad, 0);
+        document.getElementById("total").textContent = total;
+
+        // filter → mayores de 1
+        let mayores = Producto.productos.filter(p => p.cantidad > 1);
+
+        let listaMayores = document.getElementById("mayores");
+        listaMayores.innerHTML = "";
+
+        mayores.forEach(p => {
+            let li = document.createElement("li");
+            li.textContent = `${p.nombre} (x${p.cantidad})`;
+            listaMayores.appendChild(li);
+        });
+    }
+
+    // -----------------------------
+    // EVENTO AGREGAR PRODUCTO
+    // -----------------------------
+
+    document.getElementById("agregar").onclick = () => {
+
+        let nombre = document.getElementById("nombre").value;
+        let cantidad = Number(document.getElementById("cantidad").value);
+
+        if (!nombre || cantidad <= 0) return alert("Datos no válidos");
+
+        let nuevo = new Producto(nombre, cantidad);
+        nuevo.anyadirProducto();
+    };
+</script>
+
+</body>
+</html>

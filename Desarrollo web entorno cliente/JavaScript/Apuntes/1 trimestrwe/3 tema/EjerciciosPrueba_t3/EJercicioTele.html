@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script>
+      //Ejercicio Objetos
+      let tele = {
+        nombre: "TV Samsung 42",
+        categoria:"Televisores",
+        unidad: 4,
+        precio: 345.95,
+        importe: function(){
+          //Sin this falla
+          return this.unidad * this.precio;
+        }
+      };
+      console.log(tele);
+      console.log(tele.importe());
+      
+    </script>
+  </head>
+  <body>
+    <header></header>
+    <main></main>
+    <footer></footer>
+  </body>
+</html>

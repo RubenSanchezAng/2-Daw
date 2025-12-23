@@ -1,0 +1,120 @@
+<!-- Ejercicio 3: Generador de estadísticas de números
+
+Enunciado:
+Crea una clase Numeros que reciba un array de números aleatorios.
+
+Permite generar 10 números aleatorios del 1 al 100.
+
+Usa map para crear un array con el doble de cada número.
+
+Usa filter para quedarte solo con los números mayores a 50.
+
+Usa reduce para sumar todos los números del array original.
+
+Muestra todos los resultados en el DOM de forma clara.
+
+Bonus: guarda los últimos 3 resultados de la suma en localStorage. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="contenedor">
+        <button data-action="multiplicar">multiplicar</button>
+        <button data-action="filtrar">filtrar</button>
+        <button data-action="reducir">reducir</button>
+        <button data-action="mostrarDatos">Mostrar Datos</button>
+        <button data-action="ver">Ver Datos</button>
+
+    </div>
+    <script>
+        "use strict";
+        class Numeros{
+            constructor(){
+                this.numero =[];
+                this.numerosMultiplicados = [];
+                this.numerosFiltrados = [];
+                this.numerosReducidos = 0;
+                this.resultados = JSON.parse(localStorage.getItem('resultados')) || [];
+
+                let elem = document.getElementById("contenedor");
+
+                elem.addEventListener("click", this.onClick.bind(this));
+            }
+            ver(){
+                for (const num of this.numero) {
+                    this.resultados.push(num);
+                }
+                while(this.resultados.length > 3){
+                    this.resultados.shift();
+                }
+                localStorage.setItem('resultados', JSON.stringify(this.resultados));
+                console.log(this.resultados);
+                let ul = document.createElement("ul");
+                ul.textContent = "Ultimos 3 numeros guardados";
+                document.body.append(ul);
+                
+                for (const num of this.resultados) {
+                    let li = document.createElement("li");
+                    li.textContent = num;
+                    ul.appendChild(li);
+                }
+            }
+            mostrarDatos(){
+                let ulM = document.createElement("ul");
+                ulM.textContent = "Numeros multiplicados";
+                document.body.append(ulM);
+                for (const num of this.numerosMultiplicados) {
+                    let li = document.createElement("li");
+                    li.textContent = num;
+                    ulM.appendChild(li);
+                }
+                let ulF = document.createElement("ul");
+                ulF.textContent = "Numeros mayores de 50:";
+                document.body.appendChild(ulF);
+                for (const num of this.numerosFiltrados) {
+                    let li = document.createElement("li");
+                    li.textContent = num;
+                    ulF.appendChild(li);
+                }          
+                let li = document.createElement("li");
+                li.textContent = "Numeros sumados "+ this.numerosReducidos;
+                document.body.append(li);
+            }
+            onClick(event){
+                let action = event.target.dataset?.action;
+                if(action && typeof this[action] === "function"){
+                    this[action]();
+                }
+            }
+            agregarNumero(){
+                this.numero =[];
+                for (let i = 0; i < 10; i++) {
+                   let num = Math.floor(Math.random() *100) +1;
+                    this.numero.push(num);
+                }
+
+            }
+            multiplicar(){
+                this.numerosMultiplicados = this.numero.map((num) => num * 2);
+                console.log(this.numerosMultiplicados);
+            }
+            filtrar(){
+                this.numerosFiltrados = this.numero.filter((num)=> num > 50);
+                console.log(this.numerosFiltrados);
+            }
+            reducir(){
+                this.numerosReducidos = this.numero.reduce((acumulador, actual) => acumulador + actual, 0);
+            }
+
+        }
+        const n = new Numeros();
+        n.agregarNumero();
+        
+    </script>
+</body>
+</html>

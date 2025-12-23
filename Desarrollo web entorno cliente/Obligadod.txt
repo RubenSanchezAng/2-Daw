@@ -1,0 +1,10 @@
+Windows
+
+Remove-Item node_modules -Recurse -Force
+npm install
+npm run dev
+
+Linux
+rm -rf node_modules
+npm install
+npm run dev

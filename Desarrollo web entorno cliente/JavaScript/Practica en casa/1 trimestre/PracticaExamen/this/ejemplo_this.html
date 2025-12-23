@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <!-- Contenedor del menú -->
+  <div id="menu">
+    <!-- Cada botón tiene un data-attribute que indica la acción a ejecutar -->
+    <button data-action="save">Save</button>
+    <button data-action="load">Load</button>
+    <button data-action="search">Search</button>
+  </div>
+
+  <!-- https://es.javascript.info/event-delegation#ejemplo-de-delegacion-acciones-en-markup -->
+  <script>
+    // Clase que controla el menú
+    class Menu {
+      constructor(elem) {
+        // Guardamos el elemento raíz del menú
+        this._elem = elem;
+
+        // Delegación de eventos:
+        // Escuchamos un único click en el contenedor
+        // `bind(this)` asegura que el método onClick use el "this" correcto (la instancia Menu)
+        //Usar bind cuando cambie el codigo  
+        elem.addEventListener("click", this.onClick.bind(this));
+        // También podría usarse elem.onclick = ..., pero addEventListener es mejor práctica
+      }
+
+      // Acción "save"
+      save() {
+        alert('saving');
+      }
+
+      // Acción "load"
+      load() {
+        alert('loading');
+      }
+
+      // Acción "search"
+      search() {
+        alert('searching');
+      }
+
+      // Método que procesa los clics en el menú
+      onClick(event) {
+        // Obtiene el valor del atributo data-action del elemento clicado
+        let action = event.target.dataset?.action;
+
+        // Si existe una acción y coincide con un método de la clase, lo ejecutamos
+        if (action && typeof this[action] === "function") {
+          this[action](); // Llama dinámicamente al método: this["save"](), this["load"](), etc.
+        }
+      }
+    }
+
+    // Creamos una instancia y la asociamos al div con id "menu"
+    new Menu(document.getElementById("menu"));
+    // new Menu(menu); // alternativa si existiera una variable llamada menu
+  </script>
+
+</body>
+
+</html>

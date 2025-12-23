@@ -1,0 +1,49 @@
+Login:Hecho
+Home admin : Hecho
+Home cliente : Hecho
+Home clienteVIP :Hecho
+Home Comercial: Hecho 
+Home Encargado: Hecho
+
+Administrador(Rubén):
+Crear y gestionar usuarios : Hecho 
+Crear catálogos: Hecho
+Definir tarifas y descuentos
+gestionar pedidos
+gestionar almacenes
+
+No se hace wireframe : Recibir alertas de stock(No se puede mostrar en wiereframe)
+
+Cliente:
+gestionar sus pedidos(estado)
+Ver y descargar facturas
+
+Cliente VIP :
+Ver catálogos(Ver detalles)
+Realizar pedidos
+
+No se hace wireframe(Copiar el Hecho de cliente que es igual) : Gestionar pedidos (igual que en cliente)
+
+No se hace wireframe (Copiar el Hecho de cliente que es igual): Ver y descargar facturas(igual que en cliente)
+
+
+Comercial:
+No se hace wireframe (Copiar el Hecho de cliente VIP que es igual): Ver catálogos(igual que en cliente VIP)
+
+No se hace wireframe (Copiar el Hecho de cliente VIP que es igual): Realizar pedidos(igual que en cliente VIP)
+
+Aplicar descuentos (puede ser un apartado dentro de Realizar pedidos y al clickar te lleve a los disponibles)
+
+No se hace wireframe (Copiar el Hecho de cliente VIP que es igual) : Gestionar pedidos de tus clientes (igual que en cliente y clienteVIP)
+
+Solicitar bajas, altas, etc...
+
+
+Encargado de almacen:
+Poder ver stock, crear, modificar, eliminar y consultar almacenes
+
+Preparar y enviar pedidos (cambiar estado y restar stock
+
+No se hace wireframe  : Recibir alertas de stock(No se puede mostrar en wiereframe)(igual que admin)
+
+Crear pedido reabastecimiento

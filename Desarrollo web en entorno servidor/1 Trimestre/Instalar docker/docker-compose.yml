@@ -1,0 +1,54 @@
+version: "3.1"
+
+services:
+  www:
+    build: .                                  # Utiliza el Dockerfile ubicado en el mismo directorio
+    ports:  
+      - "8888:80"                             # Puerto de nuestra máquina : puerto dentro de Docker (80 es el puerto predeterminado de Apache)
+    volumes:                                  # Volúmenes para compartir archivos entre el host y el contenedor
+      - ./www:/var/www/html                   # Carpeta local www mapeada al directorio /var/www/html de Apache
+    depends_on:                               # El servicio www depende del servicio db
+      - db
+    networks:
+      - lamp-network                          # Definición de red para conectar los servicios
+
+  db:
+    image: mysql:5.7                          # Versión específica de MySQL para garantizar compatibilidad
+    ports: 
+      - "3307:3306"                           # Puerto de MySQL (3306)
+    environment:                              # Variables de entorno para la configuración de MySQL
+      MYSQL_DATABASE: dbname                  # Nombre de la base de datos
+      MYSQL_USER: test                        # Usuario de MySQL
+      MYSQL_PASSWORD: test                    # Contraseña del usuario
+      MYSQL_ROOT_PASSWORD: test               # Contraseña de root
+    volumes:                                  # Volúmenes para la persistencia de datos
+      - db_data:/var/lib/mysql                # Volumen para la base de datos MySQL
+    networks:
+      - lamp-network                          # Definición de red para conectar los servicios
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin              # Utiliza la imagen de phpMyAdmin oficial
+    ports:
+      - 8800:80                               # Puerto de phpMyAdmin
+    environment:
+      PMA_HOST: db                            # Dirección del servicio db de MySQL
+      MYSQL_ROOT_PASSWORD: test               # Contraseña de root de MySQL
+    depends_on:
+      - db                                    # phpMyAdmin depende de que el servicio db esté listo
+    networks:
+      - lamp-network                          # Definición de red para conectar los servicios
+
+  adminer:
+    image: adminer                            # Imagen oficial de Adminer
+    ports:
+      - 8080:8080                             # Puerto de Adminer (http://localhost:8080)
+    depends_on:
+      - db                                    # Adminer depende de que el servicio db esté listo
+    networks:
+      - lamp-network                          # Definición de red para conectar los servicios
+
+networks:
+  lamp-network:                               # Definición de una red llamada lamp-network
+
+volumes:
+  db_data:                                    # Volumen para la persistencia de datos de MySQL

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="menu">
+    <button data-action="save">Save</button>
+    <button data-action="load">Load</button>
+    <button data-action="search">Search</button>
+  </div>
+  <!-- https://es.javascript.info/event-delegation#ejemplo-de-delegacion-acciones-en-markup -->
+  <script>
+    class Menu {
+      constructor(elem) {
+        this._elem = elem;
+        elem.addEventListener("click", this.onClick.bind(this));
+      }
+
+      save() {
+        alert('saving');
+      }
+
+      load() {
+        alert('loading');
+      }
+
+      search() {
+        alert('searching');
+      }
+
+      onClick(event) {
+        let action = event.target.dataset?.action;
+        if (action && typeof this[action] === "function") {
+          this[action]();
+        }
+      }
+    }
+    new Menu(document.getElementById("menu"));
+    //new Menu(menu);
+  </script>
+</body>
+
+</html>

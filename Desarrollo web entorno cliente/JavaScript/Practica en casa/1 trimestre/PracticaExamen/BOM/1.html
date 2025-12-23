@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio BOM</title>
+</head>
+<body>
+
+    <h2>Información del navegador (BOM)</h2>
+
+    <ul>
+        <li><strong>URL actual:</strong> <span id="url">...</span></li>
+        <li><strong>Idioma:</strong> <span id="idioma">...</span></li>
+        <li><strong>Historial:</strong> <span id="historial">...</span></li>
+        <li><strong>Ancho ventana:</strong> <span id="ancho">...</span></li>
+        <li><strong>Alto ventana:</strong> <span id="alto">...</span></li>
+        <li><strong>Pantalla:</strong> <span id="pantalla">...</span></li>
+    </ul>
+
+    <button id="recargar">Recargar página</button>
+    <button id="atras">Ir atrás</button>
+    <button id="nueva">Abrir ventana nueva</button>
+
+    <script>
+        // COMPLETAR: mostrar datos en los spans usando BOM
+
+        document.getElementById("url").textContent = location.href;
+        document.getElementById("idioma").textContent =  navigator.language;
+        document.getElementById("historial").textContent = history.length;
+        document.getElementById("ancho").textContent = window.outerWidth;
+        document.getElementById("alto").textContent = window.outerHeight;
+        document.getElementById("pantalla").textContent = screen.width + " x " + screen.height;
+
+        // COMPLETAR: botones usando BOM
+
+        document.getElementById("recargar").addEventListener("click", () => {
+            location.reload();
+        });
+        
+        document.getElementById("atras").addEventListener("click", () => {
+            history.back();    
+        });
+        
+        document.getElementById("nueva").addEventListener("click", () => {
+            window.open("https://google.com", "_blank");
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="padre">
+    <button id="hijo">Haz clic</button>
+  </div>
+
+<script>
+  document.getElementById("padre").addEventListener("click", function(e) {
+    console.log("target:", e.target);
+    console.log("currentTarget:", e.currentTarget);
+  });
+</script>
+
+</body>
+</html>

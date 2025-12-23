@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Posición del ratón</title>
+</head>
+<body>
+  <p id="posicion">Mueve el ratón...</p>
+
+  <script>
+    const p = document.getElementById('posicion');
+    // clientX y clientY se reinicia con el scroll
+    document.addEventListener('mousemove', function(event) {
+      p.textContent = `Posición respecto a la ventana: X=${event.clientX}, Y=${event.clientY} 
+ | Respecto a la página: X=${event.pageX}, Y=${event.pageY}`;
+    });
+  </script>
+</body>
+</html>

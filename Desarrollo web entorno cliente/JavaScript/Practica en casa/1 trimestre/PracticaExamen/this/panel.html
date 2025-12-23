@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="contenedor">
+        <button data-action="start">start</button>
+        <button data-action="stop">stop</button>
+        <button data-action="reset">reset</button>
+    </div>
+    <script>+
+        "use strict";
+        class Panel{
+            constructor(){
+                this.contador = 0;
+                this.intervalId = null;
+                this._elem = document.getElementById("contenedor");
+
+                this.display = document.createElement("div");
+                this.display.textContent = this.contador;
+                this._elem.appendChild(this.display);
+
+                this._elem.addEventListener("click", this.onclick.bind(this));
+            }
+            onclick(event){
+                let action = event.target.dataset?.action;
+                if(action && typeof this[action] === "function"){
+                    this[action]();
+                }
+            }
+            start(){
+                if(!this.intervalId){
+                    this.intervalId = setInterval(() =>{
+                        this.contador++;
+                        this.display.textContent = this.contador;
+                    },1000);
+                }
+            }
+            stop(){
+                clearInterval(this.intervalId);
+            }
+            reset(){
+                this.stop();
+                this.contador = 0;
+                this.display.textContent = this.contador;
+            }
+        }
+        new Panel();
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      window.addEventListener("load", function () {
+        //Declarar array
+        let a = [];
+        a[0] = 0;
+        a[1] = 8;
+        a[2] = 2;
+        a[3] = 3;
+        a[4] = 4;
+
+        //Sirve para elegir un valor, al poner negativo empieza desde atrás
+        console.log(a.at(-2));
+        //Ordena el array
+        a.sort();
+        //Añade el numero al final del array
+        a.push(4);
+        //Elimina el último elemento del array
+        a.pop();
+
+        //Tambien se pueden declarar poniendo new Array
+        let cars = new Array("Saab", "Volvo", "BMW");
+
+        /*Maneras de recorrer arrays
+            //for loop
+            for (let i = 0; i < a.length; i++) {
+                console.log(a[i]);
+            }
+            //for of loop
+            for (let i of a) {
+                console.log(i);
+            }
+
+            //forEach
+            a.forEach(i => console.log(i));
+
+            //map
+            a.map(i => console.log(i));
+            */
+        (() => {
+          const alligator = [
+            "thick scales",
+            80,
+            "4 foot tail",
+            "rounded snout",
+          ];
+
+          //.includes dice true si lo incluye o false si no lo incluye
+          console.log(alligator.includes("thick scales")); // true
+
+          //.find devuelve el primer valor que cumpla con la condción asignada
+          console.log(alligator.find((el) => el.length < 12)); // '4 foot tail'
+          console.log(
+            alligator.find((el, idx) => typeof el === "string" && idx === 2)
+          ); // '4 foot tail'
+
+          //Muestra el primer índice donde esta ese elemento que se busca
+          console.log(alligator.indexOf("rounded snout")); // 3
+
+          //Muestra el primer índice donde esta esa condición que se pone
+          console.log(alligator.findIndex((el) => el == "rounded snout")); // 3
+
+          //Crea un array con todos los elementos que cumplan la condición
+          console.log(alligator.filter((el) => typeof el === "string"));
+        })();
+        //Ordenar de mayor a menor y de menor a mayor
+        const array = [10, 5, 3, 8, 2];
+
+        // Función de comparación para ordenar de menor a mayor
+        array.sort((a, b) => {
+          return a - b;
+        });
+
+        console.log(array); // [2, 3, 5, 8, 10]
+
+        // Función de comparación para ordenar de mayor a menor
+        array.sort((a, b) => {
+          return b - a;
+        });
+
+        console.log(array); // [10, 8, 5, 3, 2]
+
+        let operaciones = [1, 2, 3, 4, 5];
+
+        // Sirve para eliminar elementos de una posicion
+        operaciones.splice(2, 1); // Elimina un elemento desde la posición 2
+        console.log(operaciones); // [1, 2, 4, 5]
+
+        // Coge los valores que le das y crea un nuevo array, del 0 al 3 coge la 0 1 2
+        let newArray = operaciones.slice(1, 3);
+        console.log(newArray); // [2, 4]
+
+        // Se usa para pasar un array bidimensional a uno normal
+        let multiArray = [1, [2, [3, 4]]];
+        console.log(multiArray.flat(2)); // [1, 2, 3, 4]
+
+        // Hace la condicion y lo mete a un array, en este caso cada numero del array es multiplicado por dos
+        let mapArray = [1, 2, 3];
+        console.log(mapArray.flatMap((x) => [x, x * 2])); // [1, 2, 2, 4, 3, 6]
+
+        // Pasa un array a cadena
+        console.log(operaciones.join("-")); // "1-2-4-5"
+
+        // Separa una cadena en array , contrario a join
+        let str = "Hello World";
+        let strArray = str.split(" ");
+        console.log(strArray); // ["Hello", "World"]
+
+        // Llena el array del valor que le dices las posiciones que le dices
+        operaciones.fill(0, 1, 3); // Llena con 0 desde la posición 1 hasta la 3
+        console.log(operaciones); // [1, 0, 0, 5]
+
+        // Borra la posicion que le dices y la deja vacia
+        delete array[3]; // Deja un empty
+        console.log(operaciones); // [1, 0, 0, empty]
+      });
+    </script>
+  </head>
+
+  <body></body>
+</html>

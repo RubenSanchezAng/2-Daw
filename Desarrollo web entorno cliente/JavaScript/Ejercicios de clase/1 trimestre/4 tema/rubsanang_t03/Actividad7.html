@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="resultado"></p>
+</body>
+<script>
+    const abecedarioMorse = {
+        A: ".-",  B: "-...", 
+        C: "-.-.", D: "-..",
+        E: ".", F: "..-.",
+        G: "--.", H: "....",
+        I: "..", J: ".---",
+        K: "-.-", L: ".-..",
+        M: "--", N: "-.",
+        O: "---", P: ".--.",
+        Q: "--.-", R: ".-.",
+        S: "...", T: "-",
+        U: "..-", V: "...-",
+        W: ".--", X: "-..-",
+        Y: "-.--", Z: "--..",
+        "0": "-----", "1": ".----",
+        "2": "..---", "3": "...--",
+        "4": "....-", "5": ".....",
+        "6": "-....", "7": "--...",
+        "8": "---..", "9": "----."
+    };
+
+    const morseABecedario = {};
+    for (let letra in abecedarioMorse) {
+        morseABecedario[abecedarioMorse[letra]] = letra;
+    }
+
+    function pasarAbecedarioaMorse(frase) {
+        let fraseTraducida = "";
+        let fraseSeparada = frase.split(" ");
+        for (let i = 0; i < fraseSeparada.length; i++) {
+            for (let j = 0; j < fraseSeparada[i].length; j++) {
+                const letra = fraseSeparada[i][j];
+                if (abecedarioMorse[letra]) {
+                    fraseTraducida += abecedarioMorse[letra] + " ";
+                }
+            }
+            fraseTraducida += " ";
+        }
+        return fraseTraducida.trim();
+    }
+
+    function pasarMorseaAbecedario(frase) {
+        let fraseTraducida = "";
+        let fraseSeparada = frase.split(" ");
+        for (let i = 0; i < fraseSeparada.length; i++) {
+            if (fraseSeparada[i] == "") {
+                fraseTraducida += " ";
+            } else if (morseABecedario[fraseSeparada[i]]) {
+                fraseTraducida += morseABecedario[fraseSeparada[i]];
+            }
+        }
+        return fraseTraducida.toLowerCase();
+    }
+
+    let p = document.getElementById("resultado");
+
+    let frase = prompt("Dime una frase");
+    if (frase) {
+        frase = frase.toUpperCase();
+
+        let fraseSeparada = frase.split(" ");
+        let esMorse = fraseSeparada.every(s => s === "" || morseABecedario[s]);
+
+        let fraseFinal = "";
+
+        if (esMorse) {
+            fraseFinal = pasarMorseaAbecedario(frase);
+        } else {
+            fraseFinal = pasarAbecedarioaMorse(frase);
+        }
+
+        p.textContent = fraseFinal;
+    }
+</script>
+</html>

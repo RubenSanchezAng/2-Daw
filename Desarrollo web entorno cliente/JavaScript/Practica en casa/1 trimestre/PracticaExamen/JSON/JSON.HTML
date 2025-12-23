@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Libro{
+            constructor(nombre, autor, año){
+                this.nombre = nombre;
+                this.autor = autor;
+                this.año = año;
+            }
+            mostrarDatos(){
+                let datos = JSON.stringify(this);
+                console.log("Todos los datos: " + datos);
+
+                this.mostrarNombre(datos);
+            }
+            mostrarNombre(datos){
+                let nombre = JSON.parse(datos);
+                console.log(nombre.nombre);
+            }
+        }
+        let a =  new Libro("rafa", "juan", "2020");
+        a.mostrarDatos();
+    </script>
+</body>
+</html>

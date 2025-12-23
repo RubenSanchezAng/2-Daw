@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        "use strict";
+        let nombre = window.prompt("Dime tu nombre");
+        let año = Number(window.prompt("Dime tu año de nacimiento"));
+        let mes = Number(window.prompt("Dime tu mes de nacimiento"));
+        let dia = Number(window.prompt("Dime tu dia de nacimiento"));
+        
+        let fechaAct = new Date();
+        let edad = fechaAct.getFullYear() - año;
+
+        // getMonth() + 1 => porque devuelve 0-11
+        if (fechaAct.getMonth() + 1 < mes) {
+            edad--;
+        } else if (fechaAct.getMonth() + 1 == mes && fechaAct.getDate() < dia) {
+            edad--;
+        }
+        
+        console.log(`Hola ${nombre} tienes ${edad} años`);
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo LocalStorage</title>
+</head>
+<body>
+    <input type="text" id="nombre" placeholder="Escribe tu nombre">
+    <input type="submit" id="enviar" value="Enviar">
+    <input type="submit" id="borrar" value="Borrar">
+    
+    <div id="saludo"></div>
+
+    <script>
+        let nombre = document.getElementById("nombre");
+        let saludo = document.getElementById("saludo");
+
+        function mostrarNombre() {
+            localStorage.setItem("nombre", nombre.value);
+            saludo.textContent = "Hola " + nombre.value;
+        }
+
+        function borrarNombre() {
+            localStorage.removeItem("nombre");
+            saludo.textContent = "";
+        }
+
+        document.getElementById("enviar").addEventListener("click", mostrarNombre);
+        document.getElementById("borrar").addEventListener("click", borrarNombre);
+
+        let nombreGuardado = localStorage.getItem("nombre");
+        if (nombreGuardado) {
+            saludo.textContent = "Hola " + nombreGuardado;
+        }
+    </script>
+</body>
+</html>

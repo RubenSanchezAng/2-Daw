@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo localStorage</title>
+</head>
+    
+<body>
+    <script>
+        // Guarda un valor en el almacenamiento local del navegador.
+        // Se crea una clave llamada "test" y se le asigna el valor 2.
+        localStorage.test = 2;
+
+        // Recupera (lee) el valor guardado bajo la clave "test"
+        alert(localStorage.test); // Muestra "2"
+
+        // Elimina la clave "test" del almacenamiento local
+        delete localStorage.test;
+
+
+        // localStorage.length indica cuántas claves hay guardadas
+        // Este bucle recorre todas las claves existentes en el almacenamiento
+        for (let i = 0; i < localStorage.length; i++) {
+            // Obtiene el nombre de la clave en la posición i
+            let key = localStorage.key(i);
+
+            // Obtiene el valor guardado asociado a esa clave
+            let value = localStorage.getItem(key);
+
+            // Muestra la clave y su valor
+            alert(`${key}: ${value}`);
+        }
+    </script>
+
+    <!-- Ejercicio de ejemplo -->
+    
+    <!-- Botones tipo button para evitar recargar la página -->
+    <input type="button" value="Enviar" id="boton">
+    <input type="text" id="nombre">
+    <input type="button" value="Borrar" id="borrar">
+
+<script>
+  // Obtenemos los elementos del DOM
+  const nombre = document.querySelector('input[type=text]');
+  const enviar = document.getElementById("boton");
+  const borrar = document.getElementById("borrar");
+
+  // Función para guardar el nombre en localStorage
+  function guardarNombre() {
+    const valor = nombre.value; 
+      localStorage.setItem("nombre", valor);
+      console.log("Guardado con éxito");
+
+      let datos = document.getElementById("datos");
+      if (!datos) {
+        datos = document.createElement("h1");
+        datos.id = "datos";
+        document.body.append(datos);
+      }
+      datos.textContent = localStorage.getItem("nombre");
+    
+  }
+
+  // Función para borrar el nombre guardado
+  function borrarNombre() {
+    localStorage.removeItem("nombre");
+    console.log("Borrado con éxito");
+
+    // Borra el <h1> solo si existe
+    const datos = document.getElementById("datos");
+    if (datos) {
+      datos.remove();
+    }
+  }
+
+  // Si ya hay un nombre guardado, lo mostramos al cargar la página
+  if (localStorage.getItem("nombre")) {
+    const datos = document.createElement("h1");
+    datos.id = "datos";
+    datos.textContent = localStorage.getItem("nombre");
+    document.body.append(datos);
+  }
+
+  // Asignamos los eventos a los botones
+  enviar.addEventListener("click", guardarNombre);
+  borrar.addEventListener("click", borrarNombre);
+</script>
+
+
+</body>
+</html>

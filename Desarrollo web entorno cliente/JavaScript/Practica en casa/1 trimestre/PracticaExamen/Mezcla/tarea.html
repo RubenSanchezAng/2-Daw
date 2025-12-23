@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+     "use strict";
+        class Tarea{
+            constructor(titulo, descripcion,fechaLimite){
+                this.titulo = titulo;
+                this.descripcion = descripcion;
+                this.fechaLimite = new Date(fechaLimite);
+            }
+            tiempoRestante(){
+                let tiempo = this.fechaLimite - new Date();
+                tiempo = tiempo / 1000 / 60 / 60;
+                return tiempo;
+            }
+            estaVencida(){
+                let vencida = false;
+                let tiempo = this.tiempoRestante();
+                if(tiempo < 0){
+                    vencida = true;
+                }
+                return vencida;
+            }
+        }
+        class GestorTareas{
+            constructor(){
+               this.tareas  = [];
+                this.cargarDatos();
+            }
+            anyadirTarea(tarea){
+                this.tareas.push(tarea);
+                this.guardarDatos();
+            }
+            borrarTarea(indice){
+                this.tareas.splice(indice,1);
+                this.guardarDatos();
+            }
+            guardarDatos(){
+                let datos = this.tareas.map(t =>({
+                    titulo: t.titulo,
+                    descripcion: t.descripcion,
+                    fechaLimite : t.fechaLimite
+                }));
+                localStorage.setItem("tareas", JSON.stringify(datos));
+            }
+            cargarDatos(){
+                if(localStorage.getItem("tareas")){
+                    let datos = JSON.parse(localStorage.getItem("tareas"));
+                    this.tareas = datos.map((t) => new Tarea(t.titulo, t.descripcion, t.fechaLimite));
+                }
+            }
+            iniciarRecordatorio() {
+                setInterval(() => {
+                    const ahora = new Date();
+                    this.tareas.forEach(t => {
+                        const tiempoRestante = t.fechaLimite - ahora; // milisegundos
+                        // Si falta menos de 1 minuto y aún no está vencida
+                        if (tiempoRestante > 0 && tiempoRestante < 60_000) {
+                            console.log(`⚠ La tarea "${t.titulo}" vence en menos de 1 minuto`);
+                        }
+                    });
+                }, 5000); // Revisar cada 5 segundos
+            }
+            mostrarDatos(){
+                for (const dato of this.tareas) {
+                    console.log("Titulo: "+ dato.titulo + " descripcion "+ dato.descripcion + " fecha limite "+ dato.fechaLimite);
+                }
+            }
+        }
+const gestor = new GestorTareas();
+gestor.anyadirTarea(new Tarea("Ej1", "Ejercicios de JS", "2025-11-24T12:00"));
+gestor.mostrarDatos();
+gestor.iniciarRecordatorio();
+    </script>
+</body>
+</html>

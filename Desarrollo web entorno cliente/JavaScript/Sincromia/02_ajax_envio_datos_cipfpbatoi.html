@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enviar datos JSON</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    form {
+      margin-bottom: 20px;
+      background: #f3f3f3;
+      padding: 15px;
+      border-radius: 8px;
+      width: 300px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 95%;
+      padding: 6px;
+      margin-top: 4px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      margin-top: 15px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #resultado {
+      margin-top: 20px;
+      padding: 10px;
+      background: #fafafa;
+      border-radius: 6px;
+      white-space: pre-wrap;
+    }
+
+    .error {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <h2>Enviar datos como JSON (AJAX)</h2>
+
+  <form id="addProduct">
+    <label for="name">Nombre:</label>
+    <input type="text" name="name" id="name" required>
+
+    <label for="descrip">Descripción:</label>
+    <input type="text" name="descrip" id="descrip" required>
+
+    <button type="submit">Añadir</button>
+  </form>
+
+  <div id="resultado"></div>
+
+  <p>Después arranca el servidor con:</p>
+
+  <pre>npx json-server --watch datos-server.json --port 3000</pre>
+
+  <p>Si no tienes json-server instalado globalmente, instálalo con:</p>
+
+  <pre>npm install -g json-server</pre>
+
+  <script>
+    const form = document.getElementById("addProduct");
+    const salida = document.getElementById("resultado");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault(); // Evita recargar la página
+
+      const newProduct = {
+        name: document.getElementById("name").value,
+        descrip: document.getElementById("descrip").value
+      };
+
+      const peticion = new XMLHttpRequest();
+      peticion.open("POST", "http://localhost:3000/products");
+      peticion.setRequestHeader("Content-Type", "application/json");
+
+      salida.textContent = "Enviando: \n" + JSON.stringify(newProduct, null, 2);
+
+      // Evento cuando la petición termina (éxito o error HTTP)
+      peticion.addEventListener("load", function () {
+        if (peticion.status >= 200 && peticion.status < 300) {
+          const respuesta = JSON.parse(peticion.responseText);
+          salida.textContent = "Respuesta OK:\n\n" + JSON.stringify(respuesta, null, 2);
+        } else {
+          salida.textContent =
+            "ERROR HTTP:\n" +
+            "status=" + peticion.status + "\n" +
+            "statusText=" + peticion.statusText + "\n\n" +
+            (peticion.responseText ? "responseText:\n" + peticion.responseText : "(sin cuerpo de respuesta)");
+        }
+      });
+
+      // Evento si hay fallo de conexión (no llega al servidor)
+      peticion.addEventListener("error", function () {
+        salida.textContent =
+          "ERROR de conexión (no se pudo alcanzar el servidor):\n" +
+          "readyState=" + peticion.readyState + "\n" +
+          "status=" + peticion.status + "\n" +
+          "statusText=" + peticion.statusText;
+      });
+
+      // Enviar los datos JSON
+      peticion.send(JSON.stringify(newProduct));
+    });
+  </script>
+
+</body>
+
+</html>

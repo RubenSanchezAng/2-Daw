@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- ✅ 6. EJERCICIO 1 (consola)
+
+Instrucciones:
+
+Abrir una ventana 500x200 posicionada en (100, 200)
+
+Escribir "Hola" como título <h1>
+
+Moverla 300px hacia abajo y 100 a la izquierda
+
+Cerrar la ventana
+
+Código: -->
+<script>
+let win = open("", "ventana", "width=500,height=200,left=100,top=200");
+win.document.write("<h1>Hola</h1>");
+win.moveBy(-100, 300);
+win.close();
+
+setTimeout(() => {
+    let popup = open("", "bienvenida", "width=300,height=150,scrollbars=no,toolbar=no,menubar=no,location=no");
+    popup.document.write("<p>Bienvenido!</p>");
+    popup.document.write("<button onclick='window.close()'>Cerrar</button>");
+}, 2000);
+
+</script>
+
+    
+</body>
+</html>

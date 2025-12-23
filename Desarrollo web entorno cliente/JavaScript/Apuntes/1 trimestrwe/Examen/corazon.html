@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Corazón rosa con estrellita amarilla</title>
+  <style>
+    :root{
+      --pink:#ff6ea6; /* corazón */
+      --pink-dark:#ff3b8d;
+      --star:#ffd84d; /* estrellita */
+      --size:220px; /* cambiar tamaño desde aquí */
+    }
+    html,body{height:100%;display:grid;place-items:center;margin:0;background:linear-gradient(180deg,#fff 0%,#fffcef 100%)}
+    .card{display:inline-block;padding:28px;border-radius:18px;background:rgba(255,255,255,0.6);box-shadow:0 8px 30px rgba(0,0,0,0.08)}
+
+    /* contenedor del corazón */
+    .heart-wrap{position:relative;width:var(--size);height:var(--size)}
+
+    /* corazón hecho con pseudo-elementos */
+    .heart{
+      position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-45deg);
+      width:60%;height:60%;background:linear-gradient(180deg,var(--pink) 0%,var(--pink-dark) 100%);
+      border-radius:15% 15% 0 0;
+      box-shadow: 0 6px 14px rgba(255,105,160,0.25), inset -6px -10px 20px rgba(255,255,255,0.06);
+      transition:transform .25s ease;
+    }
+    .heart::before,.heart::after{
+      content:"";position:absolute;width:100%;height:100%;background:inherit;border-radius:50%;
+    }
+    .heart::before{left:0;top:-50%}
+    .heart::after{left:50%;top:0}
+
+    /* efecto latido */
+    .heart-wrap:hover .heart{transform:translate(-50%,-50%) rotate(-45deg) scale(1.06)}
+    .pulse{
+      position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+      width:100%;height:100%;border-radius:50%;pointer-events:none;
+      animation:pulse 1.6s infinite;opacity:.18;
+      background:radial-gradient(circle at 50% 50%,var(--pink) 0%, transparent 40%);
+    }
+    @keyframes pulse{0%{transform:translate(-50%,-50%) scale(.9);opacity:.18}50%{transform:translate(-50%,-50%) scale(1.12);opacity:.06}100%{transform:translate(-50%,-50%) scale(.9);opacity:.18}}
+
+    /* estrellita amarilla tipo "sparkle" */
+    .star{
+      position:absolute;right:6%;top:10%;width:64px;height:64px;transform:translateZ(0);
+      filter:drop-shadow(0 4px 8px rgba(0,0,0,0.12));
+      animation:star-twinkle 2.2s infinite ease-in-out;
+    }
+    @keyframes star-twinkle{
+      0%{transform:translateY(0) scale(1)}
+      50%{transform:translateY(-4px) scale(1.06)}
+      100%{transform:translateY(0) scale(1)}
+    }
+
+    /* adapta el tamaño de la estrellita según la variable --size */
+    @media (max-width:420px){:root{--size:160px}}
+
+    /* leyenda pequeña */
+    .hint{font-family:system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;color:#333;font-size:14px;margin-top:10px;text-align:center}
+  </style>
+</head>
+<body>
+  <div class="heart-wrap" aria-hidden="false" role="img" aria-label="Corazón rosa con estrellita amarilla">
+    <div class="heart"></div>
+    <div class="pulse" aria-hidden="true"></div>
+    <svg class="star" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0" stop-color="#fff47a" />
+          <stop offset="1" stop-color="#ffd84d" />
+        </linearGradient>
+      </defs>
+      <path d="M32 4l6.8 13.8L54 20.6l-11 10.7 2.6 15.2L32 40.7 18.4 46.5 21 31.3 10 20.6l15.2-2.8L32 4z" fill="url(#g)" stroke="#f6c84a" stroke-width="1.2"/>
+      <circle cx="46" cy="12" r="3.2" fill="#fff7b5" opacity="0.9" />
+    </svg>
+  </div>
+</body>
+</html>

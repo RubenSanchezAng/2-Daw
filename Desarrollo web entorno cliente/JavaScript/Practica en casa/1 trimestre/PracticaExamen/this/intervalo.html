@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Contador {
+            constructor() {
+                this.valor = 0;
+
+                // Aquí usamos bind para que "this" siga siendo la clase
+                this.intervalo = setInterval(this.aumentar.bind(this), 1000);
+            }
+
+            aumentar() {
+                console.log("Valor:", this.valor);
+                this.valor++;
+
+                if (this.valor > 5) {
+                    clearInterval(this.intervalo);
+                    console.log("Intervalo detenido");
+                }
+            }
+        }
+        new Contador();
+
+    </script>
+</body>
+</html>

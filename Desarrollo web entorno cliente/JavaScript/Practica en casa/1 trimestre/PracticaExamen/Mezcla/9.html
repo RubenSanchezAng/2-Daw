@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="hola">
+        <button data-action="mostrar">Mostrar</button>
+    </div>
+  <script>
+        "use strict";
+        class Palabra {
+            constructor(palabra) {
+                this.palabra = palabra;
+                this.elem = document.getElementById("hola");
+                this.elem.addEventListener("click", this.onClick.bind(this));
+            }
+
+            onClick(event) {
+                let action = event.target.dataset?.action;
+                if (action && typeof this[action] === "function") {
+                    this[action]();
+                }
+            }
+
+            mostrar() {
+                let fechaIn = new Date();
+                let palabraSeparada = this.palabra.split(" ");
+
+                let i = 0;
+                let intervalo = setInterval(() => {
+                    console.log(palabraSeparada[i]);
+                    i++;
+                    if (i >= palabraSeparada.length) {
+                        clearInterval(intervalo);
+                        let fechaFin = new Date();
+                        let tiempo = (fechaFin - fechaIn) / 1000
+                        console.log("Tiempo: " + tiempo + " s");
+                    }
+                }, 1000);
+            }
+        }
+
+        let a = new Palabra("Hola me llamo juan hernandez");
+</script>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="color-panel">
+        <button data-action="red">Rojo</button>
+        <button data-action="green">Verde</button>
+        <button data-action="blue">Azul</button>
+        <div id="display" style="width:200px; height:200px; border:1px solid #000; margin-top:10px;">
+            Color actual
+        </div>
+    </div>
+    <script>
+        "use strict";
+        class ColorPanel{
+            constructor(){
+                let elem = document.getElementById("color-panel");
+                this.color = document.getElementById("display");
+
+                elem.addEventListener("click", this.onClick.bind(this));
+            }
+            onClick(event){
+                let action = event.target.dataset?.action;
+                if(action && typeof this[action] === "function"){
+                    this[action]();
+                }
+            }
+            red(){
+                this.color.textContent = "red";
+                this.color.style.backgroundColor = "red";
+            }
+            green(){
+                this.color.textContent = "green";
+                this.color.style.backgroundColor = "green";
+            }
+            blue(){
+                this.color.textContent = "blue";
+                this.color.style.backgroundColor = "blue";
+            }
+        }
+        new ColorPanel();
+    </script>
+</body>
+</html>

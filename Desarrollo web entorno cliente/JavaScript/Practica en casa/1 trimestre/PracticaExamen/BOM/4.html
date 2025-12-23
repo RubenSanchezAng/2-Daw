@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Cambiador de colores</title>
+    <style>
+        #color-box {
+            width: 300px;
+            height: 200px;
+            border: 2px solid #000;
+            margin-bottom: 10px;
+            text-align: center;
+            line-height: 200px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="color-box">Color inicial</div>
+
+    <button id="iniciar">Iniciar</button>
+    <button id="detener">Detener</button>
+    <button id="reiniciar">Reiniciar</button>
+
+    <script>
+        let colorBox = document.getElementById("color-box");
+        let intervalo = null;
+        const colorInicial = "white";
+
+        // Función para generar un color aleatorio
+        function colorAleatorio() {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            return `rgb(${r},${g},${b})`;
+        }
+
+        // Función que cambia el color
+        function cambiarColor() {
+            const color = colorAleatorio();
+            colorBox.style.backgroundColor = color;
+            colorBox.textContent = color;
+        }
+
+        // Iniciar intervalo
+        document.getElementById("iniciar").addEventListener("click", () => {
+            if (!intervalo) {
+                intervalo = setInterval(cambiarColor, 1000);
+            }
+        });
+
+        // Detener intervalo
+        document.getElementById("detener").addEventListener("click", () => {
+            clearInterval(intervalo);
+            intervalo = null;
+        });
+
+        // Reiniciar
+        document.getElementById("reiniciar").addEventListener("click", () => {
+            clearInterval(intervalo);
+            intervalo = null;
+            colorBox.style.backgroundColor = colorInicial;
+            colorBox.textContent = "Color inicial";
+        });
+    </script>
+
+</body>
+</html>

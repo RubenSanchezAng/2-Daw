@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>AJAX Ejemplos</title>
+</head>
+<body>
+
+  <h1>Mostrar posts de un usuario</h1>
+  <form id="form-show">
+    <label for="id-usuario">Introduce el id del usuario: </label>
+    <input type="text" id="id-usuario" size="2">
+    <input type="submit" value="Mostrar posts">
+  </form>
+
+  <table border="1" cellpadding="5">
+    <thead>
+      <tr>
+        <th>userId</th><th>Id</th><th>Título</th><th>Post</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <p>Total de posts mostrados: <span id="num-posts"></span></p>
+
+  <!-- Cambiar aquí el archivo JS a probar -->
+   <script src="02_usando_callback.js"></script>
+  <!-- <script src="00_no_funciona.js"></script> -->
+  <!-- <script src="01_sol_mala.js"></script> -->
+  <!-- <script src="02_usando_callback.js"></script> -->
+  <!-- <script src="03_usando_promesas.js"></script> -->
+  <!-- <script src="05_con_await.js"></script> -->
+
+</body>
+</html>

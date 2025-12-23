@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Tarea 03</h1>
+    <ul></ul>
+    <script>
+        let ul = document.querySelector("ul");
+
+        let nombre = window.prompt("Dime tu nombre");
+        let diaNac = prompt("Dime tu dia de nacimiento");
+        let mesNac = prompt("Dime tu mes de nacimiento");
+        let anyoNac = prompt("Dime tu año de nacimiento");
+
+        let dato = document.createElement("li");
+        dato.textContent = "Buenos dias " + nombre;
+        ul.appendChild(dato);
+
+        let cantidad = document.createElement("li");
+        cantidad.textContent = `Tu nombre tiene ${nombre.length} caracteres, incluyendo espacios`;
+        ul.appendChild(cantidad);
+
+        let mostrarPrimeraA = document.createElement("li");
+        let mostrarUltimaA = document.createElement("li");
+
+        if(nombre.toLowerCase().includes("a")){
+            let primeraA = nombre.toLowerCase().indexOf("a");
+            mostrarPrimeraA.textContent = "La primera letra A está en la posición " + primeraA;
+
+            let ultimaA = nombre.toLowerCase().lastIndexOf("a");
+            mostrarUltimaA.textContent = "La última letra A está en la posición " + ultimaA;
+            ul.appendChild(mostrarUltimaA);
+        }else{
+            mostrarPrimeraA.textContent = "Tu nombre no incluye ninguna letra 'a'";
+            mostrarUltimaA.textContent = "";
+        }
+        ul.appendChild(mostrarPrimeraA);
+        
+
+        let nombreCortado = nombre.slice(3);
+        let mostrarNombreCortado = document.createElement("li");
+        mostrarNombreCortado.textContent = "Tu nombre menos las 3 primeras letras es: "+ nombreCortado;
+        ul.appendChild(mostrarNombreCortado);
+         
+
+        let mostrarNombreMay = document.createElement("li");
+        mostrarNombreMay.textContent = "Tu nombre todo en mayúsculas es: "+ nombre.toUpperCase();
+        ul.appendChild(mostrarNombreMay);
+
+
+        let fechaNac = new Date(anyoNac, mesNac - 1, diaNac);
+        let fechaAct = new Date();
+
+        let edad = fechaAct.getFullYear() - fechaNac.getFullYear();
+        let mesDif = fechaAct.getMonth() - fechaNac.getMonth();
+        let diaDif = fechaAct.getDate() - fechaNac.getDate();
+
+        if (mesDif < 0 || (mesDif == 0 && diaDif < 0)) {
+            edad--;
+        }
+
+        let mostrarEdad = document.createElement("li");
+        mostrarEdad.textContent = `Tu edad es: ${edad} años`;
+
+        ul.appendChild(mostrarEdad);
+
+
+        let mostrarDiaNacimiento = document.createElement("li");
+        let dias = ["lunes", "martes","miercoles","jueves","viernes","sabado","domingo"];
+        let dia = dias[fechaNac.getDay() - 1];
+        mostrarDiaNacimiento.textContent = `Naciste un feliz ${dia} del año ${fechaNac.getFullYear()}.`;
+        ul.appendChild(mostrarDiaNacimiento);
+
+
+        let mostrarCoseno = document.createElement("li");
+        mostrarCoseno.textContent = `El coseno de 180 es ${Math.cos(180)}`;
+        ul.appendChild(mostrarCoseno);
+
+
+        let numero = [34,67,23,75,35,19];
+        numero.sort((a,b)=> b - a);
+        let mostrarNumero = document.createElement("li");
+        mostrarNumero.textContent = `El número mas mayor es ${numero[0]}`;
+        ul.appendChild(mostrarNumero);
+
+
+        let numeroAleatorio = Math.floor(Math.random() * 100) + 1;
+        let mostrarNumeroAleatorio = document.createElement("li");
+        mostrarNumeroAleatorio.textContent = `El número mas mayor es ${numeroAleatorio}`;
+        ul.appendChild(mostrarNumeroAleatorio);
+       
+</script>
+
+</body>
+</html>

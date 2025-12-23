@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let palabra1 = prompt("Dime la primera palabra");
+
+        let palabra2 = prompt("Dime la segunda palabra");
+
+        function comprobarAnagrama(palabra1, palabra2){
+            let resultado = true;
+            let palabra1Orden = palabra1.split("").sort().join("");
+            let palabra2Orden = palabra2.split("").sort().join("");
+
+            if(palabra1.toLowerCase() == palabra2.toLowerCase()){
+                resultado = false;
+            }else if(palabra1Orden == palabra2Orden){
+                for (let i = 0; i < palabra1.length; i++) {
+                    if(palabra1[i] == palabra2[i]){
+                        resultado = false;
+                    }            
+                }
+            }else{
+                resultado = false;
+            }
+
+            return resultado;
+        }
+        let anagrama = comprobarAnagrama(palabra1, palabra2);
+        if (anagrama) {
+            alert("Si son anagramas");
+        }else
+
+        alert("No son anagramas");
+    </script>
+</body>
+</html>

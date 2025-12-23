@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="number" name="" id="numero">
+    <input type="button" value="Enviar" id="boton">
+    <input type="button" value="Borrar" id="borrar">
+
+    <script>
+        let numeroPasado = document.getElementById("numero");
+        let boton = document.getElementById("boton");
+        let borra = document.getElementById("borrar");
+
+        function esPrimo(){
+            let numeroMax = numeroPasado.value;   
+            let nuevaVentana = window.open("about:_blank","nuevaVentana");
+            nuevaVentana.document.write(`<h2>Numeros primos entre 1 y ${numeroMax} </h2>`);
+            nuevaVentana.document.write("<ul>");
+                
+            let primo;
+            for (let i = 2; i <= numeroMax ; i++) {
+                primo = true;
+                for (let j = 2; j < i; j++) {
+                    if(i % j == 0 && i != j){
+                        primo = false;
+                    }
+                }
+                if(primo){
+                    nuevaVentana.document.write(`<li>${i}</li>`);
+                }       
+            }
+            nuevaVentana.document.write("</ul>");
+            nuevaVentana.document.close();
+
+        }
+
+        function borrarDatos() {
+            document.querySelector("ul").innerHTML= "";
+        }
+        borra.addEventListener("click",borrarDatos)
+        boton.addEventListener("click",esPrimo);
+
+    </script>
+</body>
+</html>

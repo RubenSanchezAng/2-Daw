@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario con Validación</title>
+  <style>
+    .error {
+      color: red;
+    }
+
+
+    input.touched:invalid {
+      background-color: #ffe6e6;
+      /* ejemplo visual para ver que fue tocado */
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Formulario HTML con mensajes de error solo tras interactuar (touched)</h1>
+
+  <form method="POST" novalidate>
+    <label for="nombre">Por favor, introduzca su nombre (entre 5 y 50 caracteres): </label>
+    <input type="text" id="nombre" name="nombre" required minlength="5" maxlength="50">
+    <span class="error"></span>
+    <br><br>
+
+    <label for="mail">Por favor, introduzca una dirección de correo electrónico: </label>
+    <input type="email" id="mail" name="mail" required minlength="8">
+    <span class="error"></span>
+    <br><br>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script>
+    const form = document.querySelector('form');
+
+    // Seleccionamos todos los inputs dentro del form
+    const inputs = form.querySelectorAll('input');
+
+    // Función para actualizar mensaje solo si el campo está "touched"
+    function updateError(input) {
+      const errorSpan = input.nextElementSibling;
+      if (input.classList.contains('touched') && errorSpan) {
+        errorSpan.textContent = input.validationMessage;
+      }
+    }
+
+    // Añadimos eventos blur y input a todos los inputs
+    inputs.forEach(input => {
+      input.addEventListener('blur', () => {
+        input.classList.add('touched');
+        updateError(input);
+      });
+
+      input.addEventListener('input', () => {
+        updateError(input);
+      });
+    });
+
+    // Validación al enviar
+    form.addEventListener('submit', (event) => {
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        inputs.forEach(input => {
+          input.classList.add('touched');
+          updateError(input);
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>

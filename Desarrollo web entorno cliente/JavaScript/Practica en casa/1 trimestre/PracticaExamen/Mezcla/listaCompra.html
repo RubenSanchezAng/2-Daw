@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        "use strict";
+        class ListaCompra{
+            static lista =[];
+            constructor(nombre, cantidad, categoria){
+                this.nombre = nombre;
+                this.cantidad = cantidad;
+                this.categoria = categoria;
+            }         
+            anyadirProducto(){
+                ListaCompra.lista.push(this);
+                console.log(ListaCompra.lista);
+            }
+            borrarProducto(nombre){
+                let index = ListaCompra.lista.findIndex((elemento) => elemento.nombre == nombre);
+                
+                if(index != -1){
+                    ListaCompra.lista.splice(index,1);
+                    console.log("Eliminado con exito");
+                    console.log(ListaCompra.lista);
+                }else{
+                    console.log("No existe");
+                }
+            }
+            guardarDatos(){
+                localStorage.setItem("productos", JSON.stringify(ListaCompra.lista));
+                cargarDatos();
+            }
+            cargarDatos(){
+                if(localStorage.getItem("productos")){
+                    ListaCompra.lista = JSON.parse(localStorage.getItem("productos"));
+                }
+            }
+        }
+        let a = new ListaCompra("naranja", "3", "frutaa");
+        a.anyadirProducto();
+        a.borrarProducto("naranja");
+    </script>
+</body>
+</html>

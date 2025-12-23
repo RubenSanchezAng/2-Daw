@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        poscionX = 0;
+        poscionY = 0;
+        let intervalo =  setInterval(() => {
+            poscionX += 100;
+            poscionY += 100;
+            console.log("Posicion x "+ poscionX + "posicion y:"+ poscionY);            
+        }, 1000);
+        
+        setTimeout(() => {
+            clearInterval(intervalo);
+            console.log("Se Cbo-")
+        }, 10000);
+    </script>
+</body>
+</html>

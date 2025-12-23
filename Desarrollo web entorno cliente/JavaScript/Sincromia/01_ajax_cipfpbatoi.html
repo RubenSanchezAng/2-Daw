@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajax con Botón</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    #btn-cargar {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-top: 10px;
+      display: inline-block;
+    }
+
+    #btn-cargar:hover {
+      background-color: #45a049;
+    }
+
+    #resultado {
+      margin-top: 20px;
+      padding: 10px;
+      background: #f5f5f5;
+      border-radius: 6px;
+      font-size: 14px;
+      white-space: pre-wrap;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <h2>Ajax en JS</h2>
+
+  <button id="btn-cargar">Cargar usuarios</button>
+
+  <div id="resultado"></div>
+
+  <script>
+    document.getElementById("btn-cargar").addEventListener("click", realizarPeticion);
+
+    function realizarPeticion() {
+
+      const salida = document.getElementById("resultado");
+      salida.textContent = "Realizando petición...";
+
+      const peticion = new XMLHttpRequest();
+      console.log("Estado inicial de la petición: " + peticion.readyState);
+
+      peticion.open('GET', 'https://jsonplaceholder.typicode.com/users');
+      console.log("Estado de la petición tras el 'open': " + peticion.readyState);
+
+      peticion.send();
+      console.log("Petición hecha");
+
+      peticion.addEventListener('readystatechange', function () {
+        console.log("Estado de la petición: " + peticion.readyState);
+
+        if (peticion.readyState === 4) {
+          if (peticion.status === 200) {
+
+            console.log("Datos recibidos:");
+            let usuarios = JSON.parse(peticion.responseText);
+
+            console.log(usuarios);
+
+            // Mostrar datos en pantalla  
+            //  null -> incliye todas las propiedades
+            //  2 -> indentación para que el JSON sea "legible"
+            salida.textContent = JSON.stringify(usuarios, null, 2);
+
+          } else {
+            console.log("Error " + peticion.status + " (" + peticion.statusText + ") en la petición");
+            salida.textContent = "Error en la petición";
+          }
+        }
+      });
+
+      console.log("Petición acabada");
+    }
+  </script>
+
+</body>
+
+</html>

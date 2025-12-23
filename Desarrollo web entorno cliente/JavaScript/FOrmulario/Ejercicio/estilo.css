@@ -1,0 +1,19 @@
+.error{
+    color: red;
+    margin-top: 5px;
+    display: block;
+}
+
+.texto{
+    background-color: #d9edf7;
+    border: 1px solid #bce8f1;
+    margin-top: 10px;
+    margin-bottom: 10px;     
+}
+label{
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+

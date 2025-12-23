@@ -1,0 +1,165 @@
+<!-- Ejercicio: Mini Aplicación de Tareas Interactivas con Estadísticas de Uso
+
+Descripción:
+Vamos a crear una lista de tareas donde el usuario puede:
+
+Añadir tareas.
+
+Marcar tareas como completadas.
+
+Ver estadísticas (cuántas tareas hay, completadas, pendientes).
+
+Registrar la última vez que interactuó con la app.
+
+Mostrar la posición del mouse en tiempo real.
+
+Guardar las tareas en localStorage.
+
+Esto cubrirá clases, arrays, map/filter/reduce, push/pop/slice/splice/join, DOM, BOM, localStorage, Date y eventos de movimiento. -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mini App de Tareas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #lista-tareas li.completada {
+            text-decoration: line-through;
+            color: gray;
+        }
+        #lista-tareas li {
+            cursor: pointer;
+        }
+        #estadisticas {
+            margin-top: 20px;
+        }
+        #posicion-mouse {
+            margin-top: 10px;
+            font-size: 14px;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Mini App de Tareas</h1>
+
+    <input type="text" id="nueva-tarea" placeholder="Nueva tarea">
+    <button id="agregar-tarea">Añadir</button>
+
+    <ul id="lista-tareas"></ul>
+
+    <div id="estadisticas">
+        <p>Total de tareas: <span id="total">0</span></p>
+        <p>Tareas completadas: <span id="completadas">0</span></p>
+        <p>Tareas pendientes: <span id="pendientes">0</span></p>
+        <p>Última interacción: <span id="ultima-interaccion">Nunca</span></p>
+    </div>
+
+    <div id="posicion-mouse">Posición del mouse: X=0, Y=0</div>
+
+    <script>
+        "use strict";
+
+        class AppTareas {
+            constructor() {
+                this.tareas = []; // Array de objetos {texto: '', completada: false}
+                this.cargarTareas();
+
+                // Elementos del DOM
+                this.listaEl = document.getElementById('lista-tareas');
+                this.inputNuevaTarea = document.getElementById('nueva-tarea');
+                this.totalEl = document.getElementById('total');
+                this.completadasEl = document.getElementById('completadas');
+                this.pendientesEl = document.getElementById('pendientes');
+                this.ultimaInteraccionEl = document.getElementById('ultima-interaccion');
+
+                // Eventos
+                document.getElementById('agregar-tarea').addEventListener('click', () => this.agregarTarea());
+                this.listaEl.addEventListener('click', (e) => this.alternarTarea(e));
+
+                window.addEventListener('mousemove', (e) => this.actualizarPosicionMouse(e));
+
+                // Render inicial
+                this.renderizarTareas();
+                this.actualizarEstadisticas();
+            }
+
+            guardarTareas() {
+                localStorage.setItem('tareas', JSON.stringify(this.tareas));
+            }
+
+            cargarTareas() {
+                const guardadas = localStorage.getItem('tareas');
+                if (guardadas) {
+                    this.tareas = JSON.parse(guardadas);
+                }
+            }
+
+            renderizarTareas() {
+                this.listaEl.innerHTML = '';
+                this.tareas.forEach((tarea, indice) => {
+                    const li = document.createElement('li');
+                    li.textContent = tarea.texto;
+                    li.dataset.indice = indice;
+                    if (tarea.completada) li.classList.add('completada');
+                    this.listaEl.appendChild(li);
+                });
+            }
+
+            agregarTarea() {
+                const texto = this.inputNuevaTarea.value.trim();
+                if (texto === '') return;
+
+                this.tareas.push({texto: texto, completada: false});
+                this.inputNuevaTarea.value = '';
+                this.guardarTareas();
+                this.renderizarTareas();
+                this.actualizarEstadisticas();
+                this.registrarInteraccion();
+            }
+
+            alternarTarea(evento) {
+                // Usamos closest para asegurarnos de que se clique en el li
+                const li = evento.target.closest('li');
+                if (!li || !li.dataset.indice) return;
+
+                const indice = parseInt(li.dataset.indice);
+                this.tareas[indice].completada = !this.tareas[indice].completada;
+                this.guardarTareas();
+                this.renderizarTareas();
+                this.actualizarEstadisticas();
+                this.registrarInteraccion();
+            }
+
+            actualizarEstadisticas() {
+                const total = this.tareas.length;
+                const completadas = this.tareas.filter(t => t.completada).length;
+                const pendientes = total - completadas;
+
+                this.totalEl.textContent = total;
+                this.completadasEl.textContent = completadas;
+                this.pendientesEl.textContent = pendientes;
+            }
+
+            registrarInteraccion() {
+                const ahora = new Date();
+                this.ultimaInteraccionEl.textContent = ahora.toLocaleString();
+            }
+
+            actualizarPosicionMouse(evento) {
+                const posEl = document.getElementById('posicion-mouse');
+                posEl.textContent = `Posición del mouse: X=${evento.clientX}, Y=${evento.clientY}`;
+            }
+        }
+
+        // Crear la app
+        const app = new AppTareas();
+    </script>
+
+</body>
+</html>

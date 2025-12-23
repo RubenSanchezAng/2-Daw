@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="contador">
+        <button data-action="iniciar">Iniciar</button>
+        <button data-action="parar">Parar</button>
+        <button data-action="reiniciar">Reiniciar</button>
+    </div>
+    <h1></h1>
+    <script>
+        "use strict";
+        class Temporizador{
+            constructor(){
+                this.elem = document.getElementById("contador");
+                this.valor = 0;
+                this.intervalo = null;
+                this.h1 = document.querySelector("h1");
+                this.elem.addEventListener("click", this.onClick.bind(this));
+            }
+            onClick(event){
+                let accion = event.target.dataset?.action;
+                if(accion && typeof this[accion] === "function"){
+                    this[accion]();
+                }
+            }
+            iniciar(){
+                console.log("a");
+                if(this.intervalo) return;
+                this.intervalo = setInterval(() => {
+                    this.valor++;
+                    this.mostrarValor();
+                },1000);
+            }
+            mostrarValor(){
+                this.h1.textContent = this.valor;
+            }
+            parar(){
+                clearInterval(this.intervalo);
+                this.intervalo = null;
+            }
+            reiniciar(){
+                this.valor = 0;
+                clearInterval(this.intervalo);
+                this.intervalo = null;
+                this.mostrarValor();
+            }
+        }
+        new Temporizador();
+    </script>
+</body>
+</html>

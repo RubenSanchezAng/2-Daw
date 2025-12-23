@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="submit" value="Realizar acciones" id="boton">
+    <script>
+        let boton = document.getElementById("boton");
+        boton.addEventListener("click", bom);
+        function bom(){
+            let nuevaVentana = window.open("about:blank","nombreVentana","width=600,height=400,resizable=no");
+            nuevaVentana.document.write("<h3>Ejemplo de ventana nueva</h3>");
+            nuevaVentana.document.write("<p>Url completa: "+nuevaVentana.location.href +"</p>");
+            nuevaVentana.document.write("<p>Protocolo utilizado: "+nuevaVentana.location.protocol +"</p>");
+            nuevaVentana.document.write("<p>Nombre en código del navegador: "+nuevaVentana.navigator.appCodeName +"</p>");
+            
+            let java = nuevaVentana.navigator.javaEnabled();
+
+            if(java){
+                nuevaVentana.document.write("<p>Java está disponible</p>");
+            }else{
+                nuevaVentana.document.write("<p>Java no está disponible</p>");
+            }
+            
+            nuevaVentana.document.write('<iframe src="https://ejemplo.com" width="800" height="600" style="border:1px solid #000;"></iframe>');
+        
+        }
+
+    </script>
+</body>
+</html>

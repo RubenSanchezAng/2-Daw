@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+      <link rel="stylesheet" href="estilo.css">
+
+<body>
+    <form action="http://localhost:3003/foo" method="post" id = "registro" novalidate>
+        <h3>Datos del usuario</h3>
+        
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" id="nombre" required placeholder="Nombre">
+        <span class="error" id="errorNombre"></span>
+        
+        <label for="apellido1">Primer Apellido:</label>
+        <input type="text" name="apellido1" id="apellido1" required placeholder="Primer apellido">
+        <span class="error" id="errorApellido1"></span>
+        
+        <label for="apellido2">Segundo Apellido:</label>
+        <input type="text" name="apellido2" id="apellido2" required placeholder="Segundo apellido">
+        <span class="error" id="errorApellido2"></span>   
+        
+        <label for="fechaNacimiento">*Fecha nacimiento:</label>
+        <input type="date" id="fechaNacimiento" name="fechaNacimiento" required placeholder="fecha de nacimiento">
+        <span class="error" id="errorFechaNacimiento"></span>
+        
+        <label for="tipoDocumento">*Tipo documento:</label>
+        <select id="tipoDocumento" name="tipoDocumento" required>
+            <option value="DNI" selected>DNI</option>
+            <option value="NIE" selected>NIE</option>
+        </select>
+        <span class="error" id="errortipoDocumento"></span>   
+        
+        <label for="dni">*N° documento:</label>
+        <input type="text" id="dni" name="dni" required maxlength="9" pattern="[0-9]{8}[A-Za-z]{1}" title="Formato: 8 números y 1 letra" placeholder="Número de documento">
+        <span class="error" id="errorDni"></span>
+        
+        <p class="texto">Este identificador se utilizará como usuario de acceso a la Sede electrónica.</p>
+        
+        <label for="contrasena">*Contraseña:</label>
+        <input type="password" id="contrasena" name="contrasena" required minlength="12" pattern="^(?=.*\d)(?=.*[\W_]).+$" title="Mín. 12 caracteres, debe contener un número y un símbolo." placeholder="Contraseña">
+        <span class="error" id="errorContrasena"></span>
+        
+        <label for="repetirContrasena">*Repita contraseña:</label>
+        <input type="password" id="repetirContrasena" name="repetirContrasena" required minlength="12" placeholder="Repetir contrasena">
+        <span class="error" id="errorRepetirContrasena"></span>
+        
+        <label for="idesp">Número de soporte/IDESP/IXESP:</label>
+        <input type="text" id="idesp" name="idesp" placeholder="Número de soporte/IDESP/IXESP:">
+        <span class="error" id="errorIdesp"></span>
+        
+        <div class="texto">
+            <p>Si selecciona como Tipo de Documento DNI deberá informar el IDESP, si por el contrario selecciona NIE deberá informar el IXESP para que el Sistema pueda verificar sus Datos de Identidad con la Dirección General de la Policía. 
+                <a href="#" target="_blank">Ver ayuda identidad</a>.</p>
+                <p>Le recordamos en tal caso, que la información introducida en los campos Nombre, Primer apellido y Segundo apellido (en caso de estar informado) deben ser EXACTAMENTE IGUALES a los existentes en su documento de identificación.</p>
+            </div>
+            
+        <label for="email">*Correo electrónico:</label>
+        <input type="email" id="email" name="email" required placeholder="email">
+        <span class="error" id="errorEmail"></span>
+
+        <label for="repetirEmail">*Repita correo electrónico:</label>
+        <input type="email" id="repetirEmail" name="repetirEmail" required placeholder="Repetir email">
+        <span class="error" id="errorRepetirEmail"></span>
+        
+        <label for="telefono">*Teléfono móvil:</label>
+        <input type="tel" id="telefono" name="telefono" required maxlength="9" pattern="[6-9][0-9]{8}" title="9 dígitos, debe empezar por 6, 7, 8 o 9." placeholder="Número de telefono">
+        <span class="error" id="errorTelefono"></span>
+        
+        <p class="texto">El correo electrónico y el teléfono móvil indicados se utilizarán para recibir comunicaciones relativas a los trámites implementados en esta sede electrónica.</p>
+        
+        <h3>DECLARACIONES</h3>
+        
+        <label for="consentimiento">*Doy mi consentimiento</label>
+        <input type="checkbox" id="consentimiento" name="consentimiento" required>
+        <span class="error" id="errorConsentimiento"></span>        
+        
+        <label for="ciertos">*Declaro que los datos que figuran en la solicitud de registro son ciertos, asumiendo en caso contrario, las responsabilidades que pudieran derivarse de su inexactitud y autorizando al Ministerio de Educación y Formación Profesional la consulta de los mismos en el Sistema de Verificación de Datos de Identidad de la Dirección General de la Policía.</label>
+        <input type="checkbox" id="ciertos" name="ciertos" required>
+        <span class="error" id="errorCierto"></span>  
+
+        <p>*Declaro que he leído la INFORMACIÓN BÁSICA referente a los derechos a ejercitar.</p>
+        
+        <button type="submit">Aceptar</button>
+    </form>
+    
+    <script src="validacion.js"></script>
+</body>
+</html>

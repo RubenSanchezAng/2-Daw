@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!--  -->
+     <form id="form1" action="http://localhost:3003" method="post"> 
+    <!-- <form id="form1" action="http://localhost:3003" method="get"> -->
+        <!---el name suele ser único menos en "options" y radiobuttons -->
+        <!-- las "id" tiene que ser diferentes-->
+        <!-- el name, para agurpar los radio => solo se selecciona 1 -->
+        <input id="idRed" type="radio" name="color" value="red"> </input>
+        <!-- el "for" para que al clicar en el texto, se seleccione el readiobutton-->
+        <label for="idRed">Rojo</label>
+        <input id="idBlue" type="radio" name="color" value="blue"> </input>
+        <label for="idBlue">Azul</label>
+        <input id="idGreen" type="radio" name="color" value="green"> </input>
+        <label for="idGreen">Verde</label>
+        <br>
+        <br>
+        <input id="idRed1" type="radio" name="color2" value="red"> </input>
+        <label for="idRed1">Rojo</label>
+        <input id="idBlue1" type="radio" name="color2" value="blue"> </input>
+        <label for="idBlue1">Azul</label>
+        <input id="idGreen1" type="radio" name="color2" value="green"> </input>
+        <label for="idGreen1">Verde</label>
+        <br>
+        <br>
+        <button type="submit">Enviar</button>
+
+    </form>
+
+    <script>
+        // acceder a los forms
+        let miForm = document.getElementById("form1");
+        let miForm2 = document.forms[0];
+        
+
+
+    </script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+<!-- Crea una mini aplicación de seguimiento de clicks en la que el usuario pueda registrar cada vez que presiona un botón. La aplicación debe cumplir con los siguientes requisitos:
+
+Clase Click
+Cada click debe representarse como un objeto que contenga:
+La fecha y hora del click (Date).
+La posición del mouse en el momento del click (screenX y screenY).
+Array de clicks
+Mantén un array que almacene todos los clicks realizados.
+Almacena los clicks en localStorage para que no se pierdan al recargar la página.
+Botón para registrar click
+Cada vez que el usuario haga click en el botón:
+Se debe crear un nuevo objeto Click.
+Se debe agregar al array de clicks (push).
+Se debe actualizar la información en el DOM.
+Mostrar información en el DOM
+Muestra el total de clicks.
+Muestra una lista de los últimos 5 clicks, indicando la hora y la posición del mouse.
+Permite eliminar el último click registrado usando pop y actualizar la lista en pantalla.
+
+Bonus opcional
+Muestra un mensaje con la fecha y hora del último click usando Date.
+Al pasar el mouse sobre la lista de clicks, muestra la posición actual del mouse (mousemove). -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Seguimiento de Clicks</title>
+<style>
+  body { font-family: sans-serif; padding: 20px; }
+  button { margin: 5px; }
+  ul { list-style-type: none; padding: 0; }
+  li { margin-bottom: 5px; }
+</style>
+</head>
+<body>
+
+<h1>Seguimiento de Clicks</h1>
+
+<button id="clickButton">Registrar Click</button>
+<button id="undoButton">Eliminar Último Click</button>
+
+<p>Total de clicks: <span id="total">0</span></p>
+<p>Último click: <span id="ultimoClick">N/A</span></p>
+
+<ul id="clickList"></ul>
+
+<script>
+// -------------------------------
+// 1️⃣ Clase Click
+// -------------------------------
+class Click {
+    constructor(event) {
+        this.fecha = new Date();
+        this.screenX = event.screenX;
+        this.screenY = event.screenY;
+    }
+}
+
+// -------------------------------
+// 2️⃣ Array de clicks
+// -------------------------------
+let clicks = [];
+
+// -------------------------------
+// 3️⃣ Cargar clicks desde localStorage
+// -------------------------------
+function cargarClicks() {
+    const guardadas = localStorage.getItem('clicks');
+    if (guardadas) {
+        clicks = JSON.parse(guardadas);
+        actualizarDOM();
+    }
+}
+
+// -------------------------------
+// 4️⃣ Función para registrar un click
+// -------------------------------
+function registrarClick(event) {
+    const nuevoClick = new Click(event);      // Creamos objeto click
+    clicks.push(nuevoClick);                  // Lo añadimos al array
+    localStorage.setItem('clicks', JSON.stringify(clicks)); // Guardamos en storage
+    actualizarDOM();                          // Actualizamos DOM
+}
+
+// -------------------------------
+// 5️⃣ Función para eliminar último click
+// -------------------------------
+function eliminarUltimoClick() {
+    if (clicks.length > 0) {
+        clicks.pop();                          // Eliminamos último elemento
+        localStorage.setItem('clicks', JSON.stringify(clicks)); // Actualizamos storage
+        actualizarDOM();                       // Actualizamos DOM
+    }
+}
+
+// -------------------------------
+// 6️⃣ Función para actualizar DOM
+// -------------------------------
+function actualizarDOM() {
+    const totalSpan = document.getElementById('total');
+    const ultimoSpan = document.getElementById('ultimoClick');
+    const clickList = document.getElementById('clickList');
+
+    totalSpan.textContent = clicks.length;
+
+    // Mostrar último click
+    if (clicks.length > 0) {
+        const ultimo = clicks[clicks.length - 1];
+        ultimoSpan.textContent = `${ultimo.fecha} (X:${ultimo.screenX}, Y:${ultimo.screenY})`;
+    } else {
+        ultimoSpan.textContent = "N/A";
+    }
+
+    // Mostrar últimos 5 clicks
+    clickList.innerHTML = '';
+    const ultimos5 = clicks.slice(-5);
+    ultimos5.forEach(c => {
+        const li = document.createElement('li');
+        li.textContent = `${c.fecha} - X: ${c.screenX}, Y: ${c.screenY}`;
+        clickList.appendChild(li);
+
+        // Mostrar posición del mouse al pasar sobre la lista
+        li.addEventListener('mousemove', e => {
+            li.textContent = `${c.fecha} - X: ${c.screenX}, Y: ${c.screenY} | Mouse actual: (${e.screenX}, ${e.screenY})`;
+        });
+    });
+}
+
+// -------------------------------
+// 7️⃣ Inicialización y EventListeners
+// -------------------------------
+document.getElementById('clickButton').addEventListener('click', registrarClick);
+document.getElementById('undoButton').addEventListener('click', eliminarUltimoClick);
+
+// Cargar clicks guardados al inicio
+cargarClicks();
+</script>
+
+</body>
+</html>

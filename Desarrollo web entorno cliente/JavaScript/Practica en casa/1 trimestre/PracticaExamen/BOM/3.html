@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio BOM — Temporizador</title>
+</head>
+<body>
+
+    <h2>Temporizador</h2>
+
+    <p>Tiempo restante: <span id="tiempo">10</span></p>
+
+    <button id="iniciar">Iniciar</button>
+    <button id="detener">Detener</button>
+    <button id="reiniciar">Reiniciar</button>
+
+    <script>
+        let tiempo = 10;
+        let intervalo = null;
+
+        // COMPLETAR: función que actualiza el span
+        function actualizarDisplay() {            
+            document.getElementById("tiempo").textContent = tiempo;
+        }
+
+        // COMPLETAR: iniciar cuenta regresiva
+        document.getElementById("iniciar").addEventListener("click", () => {
+             intervalo = setInterval(() => {
+                tiempo--;
+                actualizarDisplay();
+
+                if (tiempo === 0) {
+                    clearInterval(intervalo);
+                    intervalo = null;
+
+                    alert("¡Tiempo terminado!");
+
+                    window.open("https://google.com", "_blank");
+                }
+            }, 1000);
+        });
+
+        // COMPLETAR: detener intervalo
+        document.getElementById("detener").addEventListener("click", () => {
+             clearInterval(intervalo);
+            intervalo = null;
+        });
+
+        // COMPLETAR: reiniciar y actualizar display
+        document.getElementById("reiniciar").addEventListener("click", () => {
+           tiempo = 10;
+            actualizarDisplay();
+
+            clearInterval(intervalo);
+            intervalo = null; 
+        });
+    </script>
+
+</body>
+</html>

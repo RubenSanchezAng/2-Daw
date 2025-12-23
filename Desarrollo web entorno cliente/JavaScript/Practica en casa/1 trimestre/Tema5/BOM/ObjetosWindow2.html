@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Control de Ventanas</title>
+</head>
+<body>
+
+<h2>CONTROL DE VENTANA SECUNDARIA</h2>
+<button id="abrir">Abrir Ventana</button>
+<button id="info">Mostrar Info</button>
+<button id="mover">Mover Ventana</button>
+<button id="redimensionar">Redimensionar</button>
+<button id="mensaje">Enviar Mensaje a la Ventana</button>
+<button id="cerrar">Cerrar Ventana</button>
+
+<script>
+
+let nuevaVentana = null;
+
+// Abrir ventana --------------------------------------------------
+document.getElementById("abrir").onclick = function() {
+
+    // Abrimos ventana con tamaño y sin barras de herramientas
+    nuevaVentana = window.open(
+        "",
+        "secundaria",
+        "width=400,height=200,menubar=no,toolbar=no,scrollbars=no,left=100,top=200"
+    );
+
+    // Escribir dentro de la nueva ventana
+    nuevaVentana.document.write("<h3>Ventana Secundaria</h3>");
+    nuevaVentana.document.write("<p>Abierta desde: " + window.location.href + "</p>");
+
+    // Ejemplo de temporizador en la ventana hija
+    nuevaVentana.document.write("<p>Esta ventana se actualizará en 3 segundos...</p>");
+
+    setTimeout(() => {
+        nuevaVentana.document.write("<p><b>Actualizada!</b></p>");
+    }, 3000);
+};
+
+// Mostrar información BOM ----------------------------------------
+document.getElementById("info").onclick = function() {
+
+    if (!nuevaVentana || nuevaVentana.closed) {
+        alert("La ventana no está abierta.");
+        return;
+    }
+
+    let mensaje = `
+    Información de la ventana:
+    --------------------------
+    name: ${nuevaVentana.name}
+    screenX: ${nuevaVentana.screenX}
+    screenY: ${nuevaVentana.screenY}
+    outerWidth: ${nuevaVentana.outerWidth}
+    outerHeight: ${nuevaVentana.outerHeight}
+    innerWidth: ${nuevaVentana.innerWidth}
+    innerHeight: ${nuevaVentana.innerHeight}
+    `;
+
+    alert(mensaje);
+};
+
+// Mover ventana ---------------------------------------------------
+document.getElementById("mover").onclick = function() {
+
+    if (!nuevaVentana || nuevaVentana.closed) {
+        alert("La ventana no está abierta.");
+        return;
+    }
+
+    let x = prompt("¿Cuántos px mover horizontalmente?");
+    let y = prompt("¿Cuántos px mover verticalmente?");
+    
+    // Si cancela, no pasa nada
+    if (x === null || y === null) return;
+
+    // Convertimos a número
+    x = Number(x);
+    y = Number(y);
+
+    nuevaVentana.moveBy(x, y);
+};
+
+// Redimensionar ventana -------------------------------------------
+document.getElementById("redimensionar").onclick = function() {
+
+    if (!nuevaVentana || nuevaVentana.closed) {
+        alert("La ventana no está abierta.");
+        return;
+    }
+    
+    let ancho = prompt("Nuevo ancho:");
+    let alto = prompt("Nuevo alto:");
+
+    if (ancho === null || alto === null) return;
+
+    nuevaVentana.resizeTo(Number(ancho), Number(alto));
+};
+
+// Enviar mensaje a la ventana --------------------------------------
+document.getElementById("mensaje").onclick = function() {
+
+    if (!nuevaVentana || nuevaVentana.closed) {
+        alert("La ventana no está abierta.");
+        return;
+    }
+
+    let texto = prompt("Texto para enviar a la ventana:");
+
+    if (texto !== null) {
+        nuevaVentana.document.write("<p>" + texto + "</p>");
+    }
+};
+
+// Cerrar ventana ---------------------------------------------------
+document.getElementById("cerrar").onclick = function() {
+
+    if (!nuevaVentana || nuevaVentana.closed) {
+        alert("La ventana ya está cerrada.");
+        return;
+    }
+
+    let confirmar = confirm("¿Deseas cerrar la ventana?");
+
+    if (confirmar) {
+        nuevaVentana.close();
+    }
+};
+
+</script>
+
+</body>
+</html>

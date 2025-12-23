@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Tecla pulsada</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+    #tecla {
+      font-size: 3em;
+      color: #0077cc;
+    }
+  </style>
+</head>
+<body>
+  <p>Pulsa cualquier tecla...</p>
+  <div id="tecla">–</div>
+  <p id="info"></p>
+
+  <script>
+    const tecla = document.getElementById('tecla');
+    const info = document.getElementById('info');
+    // code representa el código físico de la tecla
+    // key lo que representa la letra (independientemente del teclado)
+    // keyCode obsoleto pero se sigue usando 
+    document.addEventListener('keydown', (event) => {
+      tecla.textContent = event.key; // muestra la tecla presionada
+      info.textContent = `key: ${event.key} | code: ${event.code}`;
+    });
+    
+  </script>
+</body>
+</html>

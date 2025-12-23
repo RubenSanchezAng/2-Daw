@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class GestorEventos {
+            static eventos = [];
+
+            constructor(nombre, descripcion, fecha) {
+                this.nombre = nombre;
+                this.descripcion = descripcion;
+                this.fecha = new Date(fecha);
+            }
+
+            anyadirDatos() {
+                GestorEventos.eventos.push(this);
+                console.log("Datos añadidos");
+                this.guardarDatos();
+            }
+
+            borrarDatos(palabra) {
+                let indice = GestorEventos.eventos.findIndex(p => p.nombre === palabra);
+                if (indice !== -1) {
+                    GestorEventos.eventos.splice(indice, 1);
+                    console.log("Borrado con éxito");
+                } else {
+                    console.log("No existe");
+                }
+                this.guardarDatos();
+            }
+
+            guardarDatos() {
+                localStorage.setItem("eventos", JSON.stringify(GestorEventos.eventos));
+
+                this.cargarDatos();
+            }
+
+            cargarDatos() {
+                if (localStorage.getItem("eventos")) {
+                    let datos = JSON.parse(localStorage.getItem("eventos"));
+                    GestorEventos.eventos = datos.map(p => new GestorEventos(p.nombre, p.descripcion, p.fecha));
+                }
+            }
+
+            mostrarDatos() {
+                this.cargarDatos();
+
+                let ul = document.createElement("ul");
+                document.body.append(ul);
+                for (const evento of GestorEventos.eventos) {
+                    let li = document.createElement("li");
+                    li.textContent = "Evento";
+                    ul.appendChild(li);
+                    let nombre = document.createElement("li");
+                    nombre.textContent = "Nombre: " + evento.nombre;
+                    li.appendChild(nombre);
+                    let descripcion = document.createElement("li");
+                    descripcion.textContent = "Descripción: " + evento.descripcion;
+                    li.appendChild(descripcion);
+                    let fecha = document.createElement("li");
+                    fecha.textContent = "Fecha: " + evento.fecha;
+                    li.appendChild(fecha);
+                }
+            }
+        }
+        let a = new GestorEventos("carrera", "carrera 20 de enero", "2026-01-20");
+        //a.anyadirDatos();
+        //a.borrarDatos("c");
+        let b = new GestorEventos("c", "carrerao", "2026-01-20");
+        //b.anyadirDatos("c");
+        let c = new GestorEventos("ra", "carreranero", "2026-01-20");
+       // c.borrarDatos("c");
+       //c.anyadirDatos();
+       c.mostrarDatos();
+    </script>
+</body>
+</html>

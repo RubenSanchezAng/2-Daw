@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ejemplo LocalStorage</title>
+</head>
+<body>
+  <h1>Bienvenido</h1>
+  <p id="saludo"></p>
+
+  <input type="text" id="nombre" placeholder="Escribe tu nombre">
+  <button id="guardar">Guardar nombre</button>
+  <button id="borrar">Borrar nombre</button>
+
+  <script>
+    const input = document.getElementById('nombre');
+    const saludo = document.getElementById('saludo');
+
+    // Si ya hay un nombre guardado, mostrarlo
+    if (localStorage.getItem('nombre')) {
+      saludo.textContent = `Hola, ${localStorage.getItem('nombre')} `;
+    }
+
+    // Guardar nombre
+    document.getElementById('guardar').addEventListener('click', () => {
+      const nombre = input.value;
+      localStorage.setItem('nombre', nombre); // Guardar en LocalStorage
+      saludo.textContent = `Hola, ${nombre} `;
+      input.value = '';
+    });
+
+    // Borrar nombre
+    document.getElementById('borrar').addEventListener('click', () => {
+      localStorage.removeItem('nombre'); // Eliminar del LocalStorage
+      saludo.textContent = '';
+    });
+  </script>
+</body>
+</html>

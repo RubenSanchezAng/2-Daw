@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <button id="boton">Haz clic</button>
+
+<script>
+  // Obtenemos el botón
+  const boton = document.getElementById("boton");
+
+  // Recuperamos el contador guardado o empezamos en 0
+  let contador = sessionStorage.getItem("contador")
+    ? parseInt(sessionStorage.getItem("contador"))
+    : 0;
+
+  // Creamos o mostramos el párrafo con el contador actual
+  let p = document.getElementById("mostrador");
+  if (!p) {
+    p = document.createElement("p");
+    p.id = "mostrador";
+    document.body.append(p);
+  }
+  p.textContent = contador;
+
+  // Función para aumentar el contador
+  function sumarContador() {
+    contador++;
+    sessionStorage.setItem("contador", contador);
+    p.textContent = contador; // ✅ actualizamos el texto
+    console.log("Contador:", contador);
+  }
+
+  // Evento al hacer clic en el botón
+  boton.addEventListener("click", sumarContador);
+</script>
+
+</body>
+</html>

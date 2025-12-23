@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tareas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        #todo-container {
+            max-width: 400px;
+            margin: auto;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+        }
+        li.completed span {
+            text-decoration: line-through;
+            color: gray;
+        }
+        button {
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="todo-container">
+        <h2>Lista de Tareas</h2>
+        <input type="text" id="task-input" placeholder="Nueva tarea">
+        <button data-action="add">Agregar</button>
+        <ul id="task-list"></ul>
+    </div>
+
+
+    <script>
+        "use strict";
+
+        class Controlador{
+            constructor(){
+                let elemt = document.getElementById("todo-container");
+                this.ul = document.getElementById("task-list");
+                elemt.addEventListener("click", this.onClick.bind(this));
+            }
+
+            onClick(event) {
+                let action = event.target.dataset?.action;
+                if(action && typeof this[action] === "function"){
+                    this[action](event);
+                }
+            }
+
+            add() {
+                let input = document.getElementById("task-input");
+                let texto = input.value.trim();
+                if (!texto) return;
+
+                let li = document.createElement("li");
+                li.innerHTML = `
+                    <span>${texto}</span>
+                    <button data-action="complete">Completar</button>
+                    <button data-action="remove">Eliminar</button>
+                `;
+                this.ul.appendChild(li);
+                input.value = "";
+            }
+
+            complete(event) {
+                let li = event.target.closest("li");
+                if (li) li.classList.toggle("completed");
+            }
+
+            remove(event) {
+                let li = event.target.closest("li");
+                if (li) li.remove();
+            }
+        }
+
+        new Controlador();
+
+    </script>
+</body>
+</html>

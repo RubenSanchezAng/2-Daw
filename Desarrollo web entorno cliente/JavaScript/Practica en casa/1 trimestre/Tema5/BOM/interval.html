@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<h1 id="contador">0</h1>
+
+<button id="start">Iniciar</button>
+<button id="stop">Detener</button>
+<p id="mensaje"></p>
+
+<script>
+    let tiempo = 0;
+    let intervalo = null;
+
+    document.getElementById("start").onclick = function() {
+        if (intervalo === null) {
+            intervalo = setInterval(() => {
+                tiempo++;
+                document.getElementById("contador").textContent = tiempo;
+            }, 1000);
+        }
+    };
+
+    document.getElementById("stop").onclick = function() {
+        clearInterval(intervalo);
+        intervalo = null;
+    };
+
+    setTimeout(()=>{
+        document.getElementById
+    })
+</script>
+
+<script>
+
+setTimeout(() => {
+    document.getElementById("mensaje").textContent = "Preparado…";
+}, 2000);
+
+setTimeout(() => {
+    document.getElementById("mensaje").textContent = "Listo…";
+}, 4000);
+
+setTimeout(() => {
+    document.getElementById("mensaje").textContent = "¡YA!";
+}, 6000);
+
+</script>
+</body>
+</html>

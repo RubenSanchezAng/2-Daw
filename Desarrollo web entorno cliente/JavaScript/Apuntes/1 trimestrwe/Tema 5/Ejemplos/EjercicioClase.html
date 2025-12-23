@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="posicion"></p>
+
+    <script>
+        let p = document.getElementById("posicion");
+
+        document.addEventListener("click", function(event){
+            let posicionX = event.clientX;
+            let posicionY = event.posicionY;
+            p.textContent = 'Respeco a la ventana: Posición x del ratón: '+posicionX+ ' posición y del raton '+ posicionY +
+            ' Respeco a la pagina: Posición x del ratón: '+event.pageX+ ' posición y del raton '+ event.pageY; 
+        })
+    </script>
+
+    <p>Pulsa una tecla</p>
+    <p id="informacion"></p>
+    <p id="tecla"></p>
+
+    <script>
+        let informacion = document.getElementById("informacion");
+        let tecla = document.getElementById("tecla");
+
+        document.addEventListener("keydown",function(event){
+            informacion.textContent = "codigo: " + event.code + " clave "+event.key; 
+        });
+    </script>
+</body>
+</html>

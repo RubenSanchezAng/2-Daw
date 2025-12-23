@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="submit" value="red" id="rojo">
+    <input type="submit" value="green" id="verde">
+    <input type="submit" value="blue" id="azul">
+
+    <script>
+      function mostrarColor(color){
+        localStorage.setItem("colorFondo", color);
+        document.body.style.backgroundColor = color;
+      }
+      document.getElementById("rojo").addEventListener("click", ()=> mostrarColor("red"));
+      document.getElementById("verde").addEventListener("click",()=> mostrarColor("green"));
+      document.getElementById("azul").addEventListener("click",()=> mostrarColor("blue"));
+
+
+      let colorGuardado = localStorage.getItem("colorFondo");
+      if(colorGuardado){
+        document.body.style.backgroundColor = colorGuardado;
+
+      }
+    </script>
+
+</body>
+</html>

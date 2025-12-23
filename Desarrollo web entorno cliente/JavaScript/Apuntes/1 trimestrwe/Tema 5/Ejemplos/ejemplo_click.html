@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" id="boton1"/>
+
+    <script>
+function clickHandler (){
+    alert('se ha pulsado');
+
+}
+let click2 = () => alert("se ha pulsado");
+
+document.getElementById('boton1').addEventListener('click', click2);
+document.getElementById('boton1').removeEventListener('click', click2);
+
+</script>
+
+
+
+</body>
+</html>
+

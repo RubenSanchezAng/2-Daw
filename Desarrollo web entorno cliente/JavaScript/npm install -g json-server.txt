@@ -1,0 +1,2 @@
+ extension: rest client
+Para iniciar server: json-server datos-server.json
